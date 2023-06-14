@@ -23,15 +23,16 @@ const config = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 200 },
+      gravity: { y: 0 },
       debug: true,
     },
   },
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [MenuPrincipal, SeleccionNivel, SeleccionAvion, Gameplay],
+  scene: [Gameplay, MenuPrincipal, SeleccionNivel, SeleccionAvion, ],
 };
 
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);
+
