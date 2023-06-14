@@ -4,4 +4,20 @@ export default class SeleccionAvion extends Phaser.Scene {
       // the key will be used to start the scene by other scenes
       super("SeleccionAvion");
     }
+    init() {
+
     }
+  
+    preload() {
+  
+    }
+  
+    create() {
+      }
+  
+  
+    
+  
+    update() {
+    }
+  }
