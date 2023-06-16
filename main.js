@@ -2,6 +2,7 @@ import MenuPrincipal from "./assets/scenes/MenuPrincipal.js";
 import SeleccionNivel from "./assets/scenes/SeleccionNivel.js";
 import SeleccionAvion from "./assets/scenes/SeleccionAvion.js";
 import Gameplay from "./assets/scenes/Gameplay.js";
+import Derrota from "./assets/scenes/Derrota.js";
 
 // Create a new Phaser config object
 const config = {
@@ -30,9 +31,11 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Gameplay, MenuPrincipal, SeleccionNivel, SeleccionAvion, ],
+  scene: [Gameplay, MenuPrincipal, SeleccionNivel, SeleccionAvion, Derrota,],
 };
 
 // Create a new Phaser game instance
 window.game = new Phaser.Game(config);
+
+var enemigo;
 
