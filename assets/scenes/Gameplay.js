@@ -18,13 +18,14 @@ export default class Gameplay extends Phaser.Scene {
      this.avion.setSize(90, 30)
      this.cursors = this.input.keyboard.createCursorKeys();
      this.enemigo = this.physics.add.group();
+   
 
         
       
         // Crear enemigos individuales y establecer la escala
      
       
-     this.vidasText = this.add.text(10, 10, `Vidas: ${this.vidas}`, { fontSize: '24px', fill: '#ffffff' });
+     this.vidasText = this.add.text(650, 10, `Vidas: ${this.vidas}`, { fontSize: '24px', fill: '#ffffff' });
       
      this.physics.add.overlap(this.avion, this.enemigo, this.avionEnemigoColision, null, this);
      
@@ -80,6 +81,15 @@ export default class Gameplay extends Phaser.Scene {
       const enemigo = this.physics.add.sprite(randomX, randomY, "Enemigo").setScale(1.2); // Crea un nuevo enemigo en las coordenadas generadas
       this.enemigo.add(enemigo);
       this.enemigo.setVelocityX(-500)
-
+      enemigo.setSize(90, 30); 
+      console.log("Salio enemigo")
+    
+      setTimeout(() => {
+        if (!enemigo.body || !enemigo.body.touching.none) {
+          return; // Si el enemigo no tiene una propiedad body o colisiona con algo, no lo destruyas
         }
+        enemigo.destroy(); 
+      }, 3000); 
+    }
+        
   }
