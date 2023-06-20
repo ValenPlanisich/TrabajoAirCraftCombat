@@ -1,6 +1,6 @@
 export default class Gameplay extends Phaser.Scene {
   constructor() {
-    super("gameplay");
+    super("gameplay2");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
   }
@@ -10,6 +10,7 @@ export default class Gameplay extends Phaser.Scene {
     this.load.image("Avion", "assets/Images/Avion.png");
     this.load.image("Enemigo", "assets/Images/Enemigo.png");
     this.load.image("Bala", "assets/Images/Bala.png");
+    this.load.image("Misil","assets/Images/Misil.png")
   }
 
   create() {
@@ -20,19 +21,29 @@ export default class Gameplay extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enemigo = this.physics.add.group();
     this.bala = this.physics.add.group();
+    this.misil = this.physics.add.group();
     
     this.vidasText = this.add.text(650, 10, `Vidas: ${this.vidas}`, { fontSize: '24px', fill: '#ffffff' });
 
+    this.physics.add.overlap(this.avion, this.misil, this.avionMisilColision, null, this)
     this.physics.add.overlap(this.avion, this.enemigo, this.avionEnemigoColision, null, this);
     this.physics.add.overlap(this.bala, this.enemigo, this.balaEnemigoColision, null, this);
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1200,
       callback: this.addAvion,
       callbackScope: this,
       loop: true,
     });
     this.lastEnemyY = 0;
+    this.time.addEvent({
+      delay: 1200,
+      callback: this.addMisil,
+      callbackScope: this,
+      loop: true,
+    });
+
+
 
     this.input.keyboard.on('keydown-SPACE', this.disparar, this);
   }
@@ -57,8 +68,8 @@ export default class Gameplay extends Phaser.Scene {
 
       this.tiempoTranscurrido += delta;
     
-      if (this.tiempoTranscurrido >= 15000 && this.vidas > 1) {
-        this.scene.start("gameplay2");
+      if (this.tiempoTranscurrido >= 60000 && this.vidas > 1) {
+        this.scene.start("victoria");
         return;
       
     
@@ -66,7 +77,7 @@ export default class Gameplay extends Phaser.Scene {
     }
   }
 
-  avionEnemigoColision(avion, enemigo) {
+  avionEnemigoColision(avion, enemigo,) {
     this.vidas--;
     this.vidasText.setText(`Vidas: ${this.vidas}`);
     enemigo.destroy();
@@ -74,6 +85,17 @@ export default class Gameplay extends Phaser.Scene {
       this.gameOver();     
     }
   }
+
+  avionMisilColision(avion, Misil){
+    this.vidas--;
+    this.vidasText.setText(`Vidas: ${this.vidas}`);
+    Misil.destroy();
+    if (this.vidas === 0) {
+      this.gameOver();     
+    }
+  }
+    
+  
 
   balaEnemigoColision(bala, enemigo) {
     bala.destroy();
@@ -109,6 +131,14 @@ export default class Gameplay extends Phaser.Scene {
       
       enemigo.destroy();
     }, 3000);
+  }
+  addMisil(){
+    const randomX = Phaser.Math.RND.between(100, 700);
+    const randomY = Phaser.Math.Between(-100, -50)
+    const misil = this.physics.add.sprite(randomX, randomY, "Misil").setScale(0.3)
+    this.misil.add(misil);
+    this.misil.setVelocityY(500)
+    misil.setSize(50, 190)
   }
 
 }
