@@ -3,6 +3,7 @@ export default class Gameplay extends Phaser.Scene {
     super("gameplay");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
+    this.explosion = null;
   }
 
   preload() {
@@ -23,6 +24,10 @@ export default class Gameplay extends Phaser.Scene {
     this.load.image("2Vidas", "assets/Images/2Vidas.png");
     this.load.image("1Vidas", "assets/Images/1Vidas.png");
     this.load.image("0Vidas", "assets/Images/0Vidas.png");
+    this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
+      frameWidth: 128,
+      frameHeight: 128
+    });
   }
 
   create() {
@@ -34,7 +39,6 @@ export default class Gameplay extends Phaser.Scene {
     this.enemigo = this.physics.add.group();
     this.bala = this.physics.add.group();
     this.avion.setDepth(1);
-
 
     this.physics.add.overlap(
       this.avion,
@@ -55,19 +59,19 @@ export default class Gameplay extends Phaser.Scene {
       delay: 500,
       callback: this.addAvion,
       callbackScope: this,
-      loop: true,
+      loop: true
     });
     this.time.addEvent({
       delay: 2000,
       callback: this.agregarNube,
       callbackScope: this,
-      loop: true,
+      loop: true
     });
     this.time.addEvent({
       delay: 5500,
       callback: this.agregarMontaña,
       callbackScope: this,
-      loop: true,
+      loop: true
     });
     this.lastEnemyY = 0;
 
@@ -77,6 +81,13 @@ export default class Gameplay extends Phaser.Scene {
       .image(750, 10, "3Vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
+     this.anims.create({
+        key: "Explosion",
+        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 10 }),
+        frameRate: 4,
+        repeat: 0
+      });
+      
   }
 
   update(time, delta) {
@@ -104,25 +115,27 @@ export default class Gameplay extends Phaser.Scene {
   }
 
   avionEnemigoColision(avion, enemigo) {
-      this.vidas--;
-      switch (this.vidas) {
-        case 2:
-          this.vidasImagen.setTexture("2Vidas");
-          break;
-        case 1:
-          this.vidasImagen.setTexture("1Vidas");
-          break;
-        case 0:
-          this.vidasImagen.setTexture("0Vidas");
-          this.gameOver();
-          break;
-      }
-      this.vidasImagen.x = 750 
-      this.vidasImagen.y = 10 
-      enemigo.destroy();
-      if (this.vidas === 0) {
+    this.vidas--;
+    switch (this.vidas) {
+      case 2:
+        this.vidasImagen.setTexture("2Vidas");
+        break;
+      case 1:
+        this.vidasImagen.setTexture("1Vidas");
+        break;
+      case 0:
+        this.vidasImagen.setTexture("0Vidas");
         this.gameOver();
-      
+        break;
+    }
+
+    this.vidasImagen.x = 750;
+    this.vidasImagen.y = 10;
+    enemigo.destroy();
+    if (this.vidas === 0) {
+      this.gameOver();
+      this.crearExplosion(this.avion.x, this.avion.y);
+      this.avion.disableBody(true, true);
     }
   }
 
@@ -132,9 +145,14 @@ export default class Gameplay extends Phaser.Scene {
   }
 
   gameOver() {
-    this.time.delayedCall(1000, () => {
-      this.scene.start("Derrota");
-    }, [], this);
+    this.time.delayedCall(
+      1000,
+      () => {
+        this.scene.start("Derrota");
+      },
+      [],
+      this
+    );
   }
 
   disparar() {
@@ -152,11 +170,9 @@ export default class Gameplay extends Phaser.Scene {
   addAvion() {
     const randomY = Phaser.Math.RND.between(100, 500);
     const randomX = Phaser.Math.Between(800, 1600);
-    const enemigo = this.physics.add.sprite(
-      randomX,
-      randomY,
-      "Enemigo"
-    ).setScale(1.2);
+    const enemigo = this.physics.add.sprite(randomX, randomY, "Enemigo").setScale(
+      1.2
+    );
     this.enemigo.add(enemigo);
     this.enemigo.setVelocityX(-500);
     enemigo.setSize(90, 30);
@@ -191,11 +207,22 @@ export default class Gameplay extends Phaser.Scene {
         "Montaña2",
         "Montaña3",
         "Montaña4",
-        "Montaña5",
+        "Montaña5"
       ])
     );
     montaña.body.setVelocityX(-150);
     montaña.setSize(1, 1);
     montaña.setDepth(2);
   }
+
+  crearExplosion(x, y) {
+    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); // Ajusta el valor de escala según tus necesidades
+    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosion.on("animationcomplete", () => {
+      this.explosion.destroy();
+      this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
+    }, this);
+    this.explosion.play("Explosion");
+  }
+  
 }
