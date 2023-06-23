@@ -4,6 +4,7 @@ export default class Gameplay extends Phaser.Scene {
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
+   // this.nubes = [];
   }
 
   preload() {
@@ -24,6 +25,13 @@ export default class Gameplay extends Phaser.Scene {
     this.load.image("2Vidas", "assets/Images/2Vidas.png");
     this.load.image("1Vidas", "assets/Images/1Vidas.png");
     this.load.image("0Vidas", "assets/Images/0Vidas.png");
+    this.load.image("Pausa", "assets/Images/PausaTEM.png");
+    this.load.image("POPUP", "assets/Images/POPUPTEM.png");
+    this.load.image("Ganaste", "assets/Images/VictoriaTEM.png");
+    this.load.image("Perdiste", "assets/Images/DerrotaTEM.png");
+    this.load.image("Reanudar", "assets/Images/REANUDARTEM.png");
+    this.load.image("BtnSalir", "assets/Images/SALIRTEM.png");
+    this.load.image("BtnReiniciar", "assets/Images/REINICIARTEM.png");
     this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
       frameWidth: 128,
       frameHeight: 128
@@ -87,7 +95,26 @@ export default class Gameplay extends Phaser.Scene {
         frameRate: 4,
         repeat: 0
       });
-      
+    this.Pausa = this.add.image(30,30, "Pausa").setScale(0.3).setInteractive();
+    this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
+    
+    this.Pausa.setDepth(2)
+
+
+
+
+    this.ganar = this.add.image(400,300,"Ganaste");
+    this.ganar.setVisible(false);
+    this.ganar.setDepth(3);
+    
+    this.perder = this.add.image(400, 300, "Perdiste");
+    this.perder.setVisible(false);
+    this.perder.setDepth(3);
+    
+    this.reiniciar = this.add.image(400, 300, "BtnReiniciar").setInteractive();
+    this.reiniciar.setVisible(false);
+    this.reiniciar.setDepth(3);
+
   }
 
   update(time, delta) {
@@ -108,9 +135,12 @@ export default class Gameplay extends Phaser.Scene {
     }
 
     this.tiempoTranscurrido += delta;
-    if (this.tiempoTranscurrido >= 150000 && this.vidas > 1) {
-      this.scene.start("gameplay2");
-      return;
+    if (this.tiempoTranscurrido >= 500000 && this.vidas > 1) {
+      this.escenaGanar()
+    }
+
+    if(this.vidas===0){
+      this.enemigo.setVelocityX(0);
     }
   }
 
@@ -125,34 +155,22 @@ export default class Gameplay extends Phaser.Scene {
         break;
       case 0:
         this.vidasImagen.setTexture("0Vidas");
-        this.gameOver();
         break;
     }
-
+    
     this.vidasImagen.x = 750;
     this.vidasImagen.y = 10;
     enemigo.destroy();
     if (this.vidas === 0) {
-      this.gameOver();
+
       this.crearExplosion(this.avion.x, this.avion.y);
       this.avion.disableBody(true, true);
+      this.escenaPerder()
     }
   }
-
   balaEnemigoColision(bala, enemigo) {
     bala.destroy();
     enemigo.destroy();
-  }
-
-  gameOver() {
-    this.time.delayedCall(
-      1000,
-      () => {
-        this.scene.start("Derrota");
-      },
-      [],
-      this
-    );
   }
 
   disparar() {
@@ -177,6 +195,10 @@ export default class Gameplay extends Phaser.Scene {
     this.enemigo.setVelocityX(-500);
     enemigo.setSize(90, 30);
     this.enemigo.setDepth(1);
+    
+    //if(this.vidas===0){
+    //  this.enemigo.setVelocityX(0);
+   // }
 
     setTimeout(() => {
       if (!enemigo.body || !enemigo.body.touching.none) {
@@ -184,7 +206,7 @@ export default class Gameplay extends Phaser.Scene {
       }
 
       enemigo.destroy();
-    }, 3000);
+    }, 20000);
   }
 
   agregarNube() {
@@ -196,23 +218,26 @@ export default class Gameplay extends Phaser.Scene {
     nube.body.setVelocityX(-200);
     nube.setSize(1, 1);
     nube.setDepth(0);
+    //console.log("Agregando nube...");
   }
-
+ // pausarNubes() {
+   // for (let i = 0; i < this.nubes.length; i++) {
+   //   this.nubes[i].setVelocityX(0); // Pausar el movimiento de cada nube
+   // }
+  //}
   agregarMontaña() {
     const montaña = this.physics.add.sprite(
       1000,
       300,
-      Phaser.Math.RND.pick([
-        "Montaña1",
-        "Montaña2",
-        "Montaña3",
-        "Montaña4",
-        "Montaña5"
-      ])
+      Phaser.Math.RND.pick(["Montaña1","Montaña2","Montaña3","Montaña4","Montaña5"])
     );
     montaña.body.setVelocityX(-150);
     montaña.setSize(1, 1);
     montaña.setDepth(2);
+    if(this.vidas===0){
+      montaña.setVelocityX(0);
+    }
+
   }
 
   crearExplosion(x, y) {
@@ -224,5 +249,32 @@ export default class Gameplay extends Phaser.Scene {
     }, this);
     this.explosion.play("Explosion");
   }
-  
+  pausarJuego() {
+    this.reanudar = this.add.sprite(400, 400, "Reanudar");
+    this.reanudar.setInteractive();
+    this.reanudar.on("pointerdown", () => this.reanudarJuego(), this);
+    this.reanudar.setScale(0.3);
+    this.reanudar.setDepth(4);
+    this.physics.pause();
+    this.reanudar.setVisible(true).setActive(true);
+    this.scene.bringToTop();
+    this.Popup = this.add.image(400, 300, "POPUP").setVisible(false);
+    this.Popup.setVisible(true);
+    this.Popup.setDepth(3);
+
+
+}
+  reanudarJuego() {
+    this.physics.resume();
+    this.Popup.setVisible(false);
+    this.reanudar.setVisible(false).setActive(false);
+  }
+  escenaGanar() {
+    this.ganar.setVisible(true);
+    this.scene.pause();
+  }
+  escenaPerder() {
+      this.time.delayedCall(1000,() => {this.scene.pause()});  
+      this.time.delayedCall(1000,() => {this.perder.setVisible(true)});
+    }
 }
