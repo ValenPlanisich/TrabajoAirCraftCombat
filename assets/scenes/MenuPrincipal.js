@@ -22,7 +22,7 @@ export default class ManuPrincipal extends Phaser.Scene {
     this.jugar = this.add.image(875, 550, "MisilJugar");
     this.jugar.setInteractive();
     this.jugar.on("pointerdown", () => {
-          this.scene.start("SeleccionAvion");
+          this.scene.start("SeleccionNivel");
         });
     this.informacion = this.add.image(875, 650, "MisilInfo");
     this.informacion.setInteractive();

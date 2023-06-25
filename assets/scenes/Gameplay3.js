@@ -111,10 +111,10 @@ export default class Gameplay3 extends Phaser.Scene {
 
   update() {
     if (this.cursors.left.isDown) {
-      this.avion.setVelocityX(-160);
+      this.avion.setVelocityX(-350);
     }
     else if (this.cursors.right.isDown) {
-      this.avion.setVelocityX(160);
+      this.avion.setVelocityX(350);
 
     }
     else {
@@ -122,10 +122,10 @@ export default class Gameplay3 extends Phaser.Scene {
     }
 
     if (this.cursors.up.isDown) {
-      this.avion.setVelocityY(-330);
+      this.avion.setVelocityY(-350);
     }
     else if (this.cursors.down.isDown) {
-          this.avion.setVelocityY(330);
+          this.avion.setVelocityY(350);
         }
     else {this.avion.setVelocityY(0)}
   
@@ -298,7 +298,7 @@ export default class Gameplay3 extends Phaser.Scene {
   }
 
   salirJuego() {
-      this.scene.start("menuprincipal");
+      this.scene.start("SeleccionNivel");
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
