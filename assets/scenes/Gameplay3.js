@@ -25,13 +25,17 @@ export default class Gameplay3 extends Phaser.Scene {
     this.load.image("2Vidas", "assets/Images/2Vidas.png");
     this.load.image("1Vidas", "assets/Images/1Vidas.png");
     this.load.image("0Vidas", "assets/Images/0Vidas.png");
-    this.load.image("Pausa", "assets/Images/PausaTEM.png");
-    this.load.image("POPUP", "assets/Images/POPUPTEM.png");
-    this.load.image("Ganaste", "assets/Images/VictoriaTEM.png");
-    this.load.image("Perdiste", "assets/Images/DerrotaTEM.png");
-    this.load.image("Reanudar", "assets/Images/REANUDARTEM.png");
-    this.load.image("BtnSalir", "assets/Images/SALIRTEM.png");
-    this.load.image("BtnReiniciar", "assets/Images/REINICIARTEM.png");
+    this.load.image("Pausa", "assets/Images/BotonPausa.png");
+    this.load.image("POPUP", "assets/Images/PopUpPausa.png");
+    this.load.image("Ganaste", "assets/Images/PopUpVictoria.png");
+    this.load.image("Perdiste", "assets/Images/PopUpDerrota.png");
+    this.load.image("Reanudar", "assets/Images/BotonReanudar.png");
+    this.load.image("BtnSalir", "assets/Images/BotonMenu.png");
+    this.load.image("BtnReiniciar", "assets/Images/BotonReiniciar.png");
+    this.load.image("MedallaOro", "assets/Images/MedallaOro.png")
+    this.load.image("MedallaPlata", "assets/Images/MedallaPlata.png")
+    this.load.image("MedallaBronce", "assets/Images/MedallaBronce.png")
+
     this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
       frameWidth: 128,
       frameHeight: 128
@@ -98,14 +102,14 @@ export default class Gameplay3 extends Phaser.Scene {
         frameRate: 4,
         repeat: 0
       });
-    this.Pausa = this.add.image(30,30, "Pausa").setScale(0.3).setInteractive();
+    this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
     this.textoenemigoderrotado = this.add.text(400, 10, "Enemigos derrotados:" + this.enemigosderrotados, this); this
   }
 
-  update(time, delta) {
+  update() {
     if (this.cursors.left.isDown) {
       this.avion.setVelocityX(-160);
     }
@@ -113,7 +117,6 @@ export default class Gameplay3 extends Phaser.Scene {
       this.avion.setVelocityX(160);
 
     }
-    //stop
     else {
       this.avion.setVelocityX(0);
     }
@@ -126,12 +129,6 @@ export default class Gameplay3 extends Phaser.Scene {
         }
     else {this.avion.setVelocityY(0)}
   
-
-    this.update = function(time, delta) {
-      if (!this.pausado) {
-        this.tiempoTranscurrido += delta;
-      }
-    };
 
     this.textoenemigoderrotado.setText("Enemigos derrotados:" + this.enemigosderrotados, this); this
 
@@ -247,18 +244,28 @@ export default class Gameplay3 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 5 && this.vidas > 1) {
+    if (this.enemigosderrotados >= 10
+       && this.vidas >= 1) {
       this.escenaGanar();
     }
    }
   pausarJuego() {
-    this.reanudar = this.add.sprite(400, 400, "Reanudar");
+    this.reanudar = this.add.sprite(390, 411, "Reanudar");
     this.reanudar.setInteractive();
     this.reanudar.on("pointerdown", () => this.reanudarJuego(), this);
-    this.reanudar.setScale(0.2);
+    this.reanudar.setScale();
     this.reanudar.setDepth(4);
     this.physics.pause();
     this.reanudar.setVisible(true).setActive(true);
+    this.scene.bringToTop();
+    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+    
+    this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
+    this.reiniciar.setInteractive();
+    this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
+    this.reiniciar.setScale();
+    this.reiniciar.setDepth(4);
+    this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     
     this.Popup = this.add.image(400, 300, "POPUP").setVisible(false);
@@ -268,13 +275,14 @@ export default class Gameplay3 extends Phaser.Scene {
     this.pausado = true;
     
    
-   this.salir = this.add.sprite(300, 400, "BtnSalir");
-   this.salir.setInteractive();
-   this.salir.on("pointerdown", () => this.salirJuego(), this);
-   this.salir.setScale(0.2);
-   this.salir.setDepth(4);
-   this.salir.setVisible(true).setActive(true);
-   this.scene.bringToTop();
+    this.salir = this.add.sprite(300, 410, "BtnSalir");
+    this.salir.setInteractive();
+    this.salir.on("pointerdown", () => this.salirJuego(), this);
+    this.salir.setScale();
+    this.salir.setDepth(4);
+    this.salir.setVisible(true).setActive(true);
+    this.scene.bringToTop();
+  
   //this.tiempoTranscurrido.pause();
 
 }
@@ -290,49 +298,61 @@ export default class Gameplay3 extends Phaser.Scene {
   }
 
   salirJuego() {
-      this.scene.start("Menu");
+      this.scene.start("menuprincipal");
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
     this.ganar.setDepth(3);
-    this.add.text(400,200, "Has derrotado :" + this.enemigosderrotados + " enemigos").setDepth(3);
-    
-    this.reiniciar = this.add.sprite(500, 400, "BtnReiniciar");
+    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);    
+    this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
-    this.reiniciar.setScale(0.2);
+    this.reiniciar.setScale();
     this.reiniciar.setDepth(4);
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     
-    this.salir = this.add.sprite(300, 400, "BtnSalir");
+    
+    this.salir = this.add.sprite(300, 410, "BtnSalir");
     this.salir.setInteractive();
     this.salir.on("pointerdown", () => this.salirJuego(), this);
-    this.salir.setScale(0.2);
+    this.salir.setScale();
     this.salir.setDepth(4);
     this.salir.setVisible(true).setActive(true);
     this.scene.bringToTop();
     this.pausado = true;
     this.physics.pause();
+    
+    this.Oro = this.add.image(388,250, "MedallaOro").setDepth(4)
+    this.Plata = this.add.image(320, 250, "MedallaPlata").setDepth(4)
+    this.Bronce = this.add.image(455, 254, "MedallaBronce").setDepth(4)
+
+    if (this.vidas === 2){
+      this.Oro.setVisible(false)
+    }
+    else if (this.vidas === 1){
+      this.Oro.setVisible(false)
+      this.Plata.setVisible(false)
+    }
 
   }
   escenaPerder() {
     setTimeout(() => {
       this.perder = this.add.image(400, 300, "Perdiste");
       this.perder.setDepth(3);
-      this.add.text(400,200, "Has derrotado :" + this.enemigosderrotados + " enemigos").setDepth(3);
-      this.reiniciar = this.add.sprite(500, 400, "BtnReiniciar");
+      this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+      this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
-      this.reiniciar.setScale(0.2);
+      this.reiniciar.setScale();
       this.reiniciar.setDepth(4);
       this.reiniciar.setVisible(true).setActive(true);
       this.scene.bringToTop();
       
-      this.salir = this.add.sprite(300, 400, "BtnSalir");
+      this.salir = this.add.sprite(300, 410, "BtnSalir");
       this.salir.setInteractive();
       this.salir.on("pointerdown", () => this.salirJuego(), this);
-      this.salir.setScale(0.2);
+      this.salir.setScale();
       this.salir.setDepth(4);
       this.salir.setVisible(true).setActive(true);
       this.scene.bringToTop();
@@ -343,8 +363,8 @@ export default class Gameplay3 extends Phaser.Scene {
   }
   reiniciarJuego() {
     this.scene.restart();
-    this.pausado = false;
-    this.physics.resume();
+   // this.pausado = false;
+   // this.physics.resume();
     this.vidas= 3
     this.tiempoTranscurrido = 0
     this.enemigosderrotados = 0

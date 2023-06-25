@@ -9,11 +9,17 @@ export default class SeleccionNivel extends Phaser.Scene {
       }
     
       preload() {
+        this.load.image("FondoNivele","assets/Images/Elecciondenivel.png");
+        this.load.image("BtnNivel1","assets/Images/BotonNivel1.png");
+        this.load.image("BtnNivel2","assets/Images/BotonNivel2.png");
+        this.load.image("BtnNivel3","assets/Images/BotonNivel3.png");
+
     
       }
     
       create() {
-        }
+        this.add.image(400, 300, "FondoNivele");
+      }
     
     
       
