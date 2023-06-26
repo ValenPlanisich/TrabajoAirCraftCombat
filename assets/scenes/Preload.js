@@ -42,6 +42,10 @@ export default class Preload extends Phaser.Scene {
         this.load.image("POPUPTiempo", "assets/Images/PopUpPausaTiempo.png");
         this.load.image("GanasteTiempo", "assets/Images/PopUpVictoriaTiempo.png");
         this.load.image("PerdisteTiempo", "assets/Images/PopUpDerrotaTiempo.png");
+        this.load.image("Portada","assets/images/PortadaOficial.png");
+        this.load.image("MisilJugar","assets/images/Misiljugar.png");
+        this.load.image("MisilInfo","assets/images/MisilInf.png");
+        this.load.image("MisilInfinito","assets/images/MisilInfinito.png");
         this.load.spritesheet("Movimiento", "assets/Images/MovimientoAvion.png", {
           frameWidth: 128,
           frameHeight: 128

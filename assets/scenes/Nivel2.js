@@ -12,7 +12,7 @@ export default class Nivel2 extends Phaser.Scene {
   }
   create() {
     this.add.image(400, 300, "FondoNivel2");
-    this.avion = this.physics.add.anims(100, 300, "Avion").setScale(1.2);
+    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
