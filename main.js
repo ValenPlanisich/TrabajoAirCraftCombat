@@ -6,6 +6,8 @@ import Victoria from "./assets/scenes/Victoria.js";
 import Informacion from "./assets/scenes/Informacion.js";
 import Nivel2 from "./assets/scenes/Nivel2.js";
 import Nivel3 from "./assets/scenes/NIvel3.js"; 
+import NivelInfinito from "./assets/scenes/NivelInfinito.js"; 
+
 
 
 
@@ -38,7 +40,7 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [Nivel2, Nivel3,Nivel1, SeleccionNivel,Informacion, ,MenuPrincipal, Derrota, Victoria,],
+  scene: [SeleccionNivel, NivelInfinito, Nivel2,MenuPrincipal,Nivel1, Nivel3,Informacion, Derrota, Victoria,],
 };
 
 // Create a new Phaser game instance

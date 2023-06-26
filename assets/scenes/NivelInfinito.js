@@ -1,6 +1,6 @@
-export default class Nivel3 extends Phaser.Scene {
+export default class NivelInfinito extends Phaser.Scene {
   constructor() {
-    super("nivel3");
+    super("nivelinfinito");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
@@ -36,7 +36,9 @@ export default class Nivel3 extends Phaser.Scene {
     this.load.image("MedallaPlata", "assets/Images/MedallaPlata.png")
     this.load.image("MedallaBronce", "assets/Images/MedallaBronce.png")
     this.load.image("Misil", "assets/Images/Misil.png");
-  
+    this.load.image("Jugador1", "assets/Images/Jugador1.png")
+    this.load.image("Jugador2", "assets/Images/Jugador2.png")
+    this.load.image("Jugador3", "assets/Images/Jugador3.png")
 
 
     this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
@@ -47,7 +49,7 @@ export default class Nivel3 extends Phaser.Scene {
 
   create() {
     this.add.image(400, 300, "Fondo");
-    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
+    this.avion = this.physics.add.sprite(100, 300, "Jugador2").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -115,7 +117,11 @@ export default class Nivel3 extends Phaser.Scene {
       .image(750, 10, "3Vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
-     this.anims.create({
+
+
+    
+    
+      this.anims.create({
         key: "Explosion",
         frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 10 }),
         frameRate: 4,
@@ -124,7 +130,7 @@ export default class Nivel3 extends Phaser.Scene {
       this.anims.create({
         key: "ExplosionEnemigos",
         frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 3 }),
-        frameRate : 10,
+        frameRate : 8,
         repeat: 0
       });
     
@@ -157,7 +163,6 @@ export default class Nivel3 extends Phaser.Scene {
         }
     else {this.avion.setVelocityY(0)}
   
-  
 
     this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
     this.textoTiempo.setText(this.tiempoTranscurrido, this); this
@@ -170,7 +175,6 @@ export default class Nivel3 extends Phaser.Scene {
   avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
     this.explosionEnemigo(enemigo.x, enemigo.y,this.misil.x,this.misil.y)
-
     switch (this.vidas) {
       case 2:
         this.vidasImagen.setTexture("2Vidas");
@@ -296,22 +300,14 @@ export default class Nivel3 extends Phaser.Scene {
     this.explosionenemigo.play("ExplosionEnemigos");
 
   }
-  explosionEnemigo(x, y) {
-    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
-    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
-    this.explosionenemigo.on("animationcomplete", () => {
-      this.explosionenemigo.destroy()
-    }, this);
-    this.explosionenemigo.play("ExplosionEnemigos");
-
-  }
   puntaje() {
-    this.enemigosderrotados ++
+  this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 5 && this.tiempoTranscurrido >=10
-       && this.vidas >= 1) {
-      this.escenaGanar();
-    }
+  //  if (this.enemigosderrotados >= 5 && this.tiempoTranscurrido >=10
+  //     && this.vidas >= 1) {
+  //    this.escenaGanar();
+  //  }
+  
    }
   pausarJuego() {
     this.reanudar = this.add.sprite(390, 411, "Reanudar");
@@ -363,7 +359,7 @@ export default class Nivel3 extends Phaser.Scene {
   }
 
   salirJuego() {
-      this.scene.start("SeleccionNivel");
+      this.scene.start("menuprincipal");
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");

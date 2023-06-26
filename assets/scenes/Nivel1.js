@@ -102,18 +102,27 @@ export default class Nivel1 extends Phaser.Scene {
         frameRate: 4,
         repeat: 0
       });
+      this.anims.create({
+        key: "ExplosionEnemigos",
+        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 3 }),
+        frameRate : 8,
+        repeat: 0
+      });
+
+
+
     this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(570, 22, ":" + this.enemigosderrotados, this); this
+    this.textoenemigoderrotado = this.add.text(577, 20, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
   }
 
   update() {
-    if (this.cursors.left.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
     }
-    else if (this.cursors.right.isDown) {
+    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
 
     }
@@ -121,21 +130,23 @@ export default class Nivel1 extends Phaser.Scene {
       this.avion.setVelocityX(0);
     }
 
-    if (this.cursors.up.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
     }
-    else if (this.cursors.down.isDown) {
+    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
         }
     else {this.avion.setVelocityY(0)}
   
 
-    this.textoenemigoderrotado.setText(":" + this.enemigosderrotados, this); this
+    this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
 
   }
 
   avionEnemigoColision(avion, enemigo) {
     this.vidas--;
+    this.explosionEnemigo(enemigo.x, enemigo.y)
+
     switch (this.vidas) {
       case 2:
         this.vidasImagen.setTexture("2Vidas");
@@ -241,10 +252,19 @@ export default class Nivel1 extends Phaser.Scene {
     }, this);
     this.explosion.play("Explosion");
   }
+  explosionEnemigo(x, y) {
+    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
+    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosionenemigo.on("animationcomplete", () => {
+      this.explosionenemigo.destroy()
+    }, this);
+    this.explosionenemigo.play("ExplosionEnemigos");
+
+  }
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 10
+    if (this.enemigosderrotados >= 1
        && this.vidas >= 1) {
       this.escenaGanar();
     }
@@ -258,7 +278,7 @@ export default class Nivel1 extends Phaser.Scene {
     this.physics.pause();
     this.reanudar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+    this.textopausa= this.add.text(393,335, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
@@ -294,17 +314,21 @@ export default class Nivel1 extends Phaser.Scene {
     this.salir.setVisible(false).setActive(false);
     //this.ganar.setVisible(false).setActive(false);
     this.pausado = false;
+    this.textopausa.setVisible(false).setActive(false);
    // this.tiempoTranscurrido.resume();
   }
 
   salirJuego() {
       this.scene.start("SeleccionNivel");
+      this.vidas= 3
+      this.tiempoTranscurrido = 0
+      this.enemigosderrotados = 0
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
     this.ganar.setDepth(3);
-    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);    
-    this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
+    this.add.text(390,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
+    this.reiniciar = this.add.sprite(481, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
     this.reiniciar.setScale();
@@ -340,7 +364,7 @@ export default class Nivel1 extends Phaser.Scene {
     setTimeout(() => {
       this.perder = this.add.image(400, 300, "Perdiste");
       this.perder.setDepth(3);
-      this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+      this.add.text(393,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
       this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);

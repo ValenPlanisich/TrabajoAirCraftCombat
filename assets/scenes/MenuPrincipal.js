@@ -15,6 +15,7 @@ export default class ManuPrincipal extends Phaser.Scene {
     this.load.image("Portada","assets/images/Portada.png");
     this.load.image("MisilJugar","assets/images/Misiljugar.png");
     this.load.image("MisilInfo","assets/images/MisilInf.png");
+    this.load.image("MisilInfinito","assets/images/MisilInfinito.png");
   }
 
   create() {
@@ -24,10 +25,15 @@ export default class ManuPrincipal extends Phaser.Scene {
     this.jugar.on("pointerdown", () => {
           this.scene.start("SeleccionNivel");
         });
-    this.informacion = this.add.image(875, 650, "MisilInfo");
+    this.informacion = this.add.image(875, 750, "MisilInfo");
     this.informacion.setInteractive();
     this.informacion.on("pointerdown", () => {
           this.scene.start("Informacion");
+        });
+    this.nivelinfinito = this.add.image(875, 650, "MisilInfinito");
+    this.nivelinfinito.setInteractive();
+    this.nivelinfinito.on("pointerdown", () => {
+          this.scene.start("nivelinfinito");
         });
   }
 
