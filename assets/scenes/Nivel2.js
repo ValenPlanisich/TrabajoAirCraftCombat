@@ -1,6 +1,6 @@
-export default class Gameplay3 extends Phaser.Scene {
+export default class Nivel2 extends Phaser.Scene {
   constructor() {
-    super("gameplay");
+    super("nivel2");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
@@ -8,7 +8,7 @@ export default class Gameplay3 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Fondo", "assets/Images/Fondo.png");
+    this.load.image("Fondo2", "assets/Images/Fondo2.png");
     this.load.image("Avion", "assets/Images/Avion.png");
     this.load.image("Enemigo", "assets/Images/Enemigo.png");
     this.load.image("Bala", "assets/Images/Bala.png");
@@ -26,15 +26,16 @@ export default class Gameplay3 extends Phaser.Scene {
     this.load.image("1Vidas", "assets/Images/1Vidas.png");
     this.load.image("0Vidas", "assets/Images/0Vidas.png");
     this.load.image("Pausa", "assets/Images/BotonPausa.png");
-    this.load.image("POPUP", "assets/Images/PopUpPausa.png");
-    this.load.image("Ganaste", "assets/Images/PopUpVictoria.png");
-    this.load.image("Perdiste", "assets/Images/PopUpDerrota.png");
+    this.load.image("POPUP", "assets/Images/PopUpPausaTiempo.png");
+    this.load.image("Ganaste", "assets/Images/PopUpVictoriaTiempo.png");
+    this.load.image("Perdiste", "assets/Images/PopUpDerrotaTiempo.png");
     this.load.image("Reanudar", "assets/Images/BotonReanudar.png");
     this.load.image("BtnSalir", "assets/Images/BotonMenu.png");
     this.load.image("BtnReiniciar", "assets/Images/BotonReiniciar.png");
     this.load.image("MedallaOro", "assets/Images/MedallaOro.png")
     this.load.image("MedallaPlata", "assets/Images/MedallaPlata.png")
     this.load.image("MedallaBronce", "assets/Images/MedallaBronce.png")
+    this.load.image("Misil", "assets/Images/Misil.png");
 
     this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
       frameWidth: 128,
@@ -43,16 +44,19 @@ export default class Gameplay3 extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "Fondo");
+    this.add.image(400, 300, "Fondo2");
     this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
     this.enemigo = this.physics.add.group();
     this.bala = this.physics.add.group();
+    this.misil = this.physics.add.group();
     this.avion.setDepth(1);
   
-
+    this.physics.add.overlap(
+      this.avion, this.misil, this.avionEnemigoColision,null,this
+    )
     this.physics.add.overlap(
       this.avion,
       this.enemigo,
@@ -70,7 +74,7 @@ export default class Gameplay3 extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1500,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -86,6 +90,20 @@ export default class Gameplay3 extends Phaser.Scene {
       callback: this.agregarMontaña,
       callbackScope: this,
       loop: true
+    });
+
+    this.time.addEvent({
+      delay: 1200,
+      callback: this.addMisil,
+      callbackScope: this,
+      loop: true,
+    });
+
+   const tiempo = this.time.addEvent({
+      delay: 1000,
+      callback: this.cronometro,
+      callbackScope: this,
+      loop: true,
     });
 
     this.lastEnemyY = 0;
@@ -106,7 +124,7 @@ export default class Gameplay3 extends Phaser.Scene {
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(400, 10, "Enemigos derrotados:" + this.enemigosderrotados, this); this
+    this.textoTiempo = this.add.text(557, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
   }
 
   update() {
@@ -130,11 +148,18 @@ export default class Gameplay3 extends Phaser.Scene {
     else {this.avion.setVelocityY(0)}
   
 
-    this.textoenemigoderrotado.setText("Enemigos derrotados:" + this.enemigosderrotados, this); this
+    this.textoTiempo.setText(this.tiempoTranscurrido, this); this
 
   }
+  cronometro(){
+    if (!this.pausado) {this.tiempoTranscurrido++}
+    if (this.tiempoTranscurrido >= 2 && this.vidas >= 1){
+      this.escenaGanar(); 
 
-  avionEnemigoColision(avion, enemigo) {
+    }
+    console.log("tiempo");
+  }
+  avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
     switch (this.vidas) {
       case 2:
@@ -151,6 +176,7 @@ export default class Gameplay3 extends Phaser.Scene {
     this.vidasImagen.x = 750;
     this.vidasImagen.y = 10;
     enemigo.destroy();
+
     if (this.vidas === 0) {
 
       this.crearExplosion(this.avion.x, this.avion.y);
@@ -199,6 +225,14 @@ export default class Gameplay3 extends Phaser.Scene {
       enemigo.destroy();
     }, 20000);
   }
+  addMisil(){
+    const randomX = Phaser.Math.RND.between(100, 700);
+    const randomY = Phaser.Math.Between(-100, -50)
+    const misil = this.physics.add.sprite(randomX, randomY, "Misil").setScale(0.3)
+    this.misil.add(misil);
+    this.misil.setVelocityY(500)
+    misil.setSize(50, 190)
+  }
 
   agregarNube() {
    if (!this.pausado) {
@@ -241,14 +275,14 @@ export default class Gameplay3 extends Phaser.Scene {
     }, this);
     this.explosion.play("Explosion");
   }
-  puntaje() {
-    this.enemigosderrotados ++
-    console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 10
-       && this.vidas >= 1) {
-      this.escenaGanar();
-    }
-   }
+  //puntaje() {
+  //  this.enemigosderrotados ++
+  //  console.log("Enemigos derrotados", this.enemigosderrotados);
+  //  if (this.enemigosderrotados >= 10
+  //     && this.vidas >= 1) {
+  //    this.escenaGanar();
+  //  }
+  // }
   pausarJuego() {
     this.reanudar = this.add.sprite(390, 411, "Reanudar");
     this.reanudar.setInteractive();
@@ -258,7 +292,7 @@ export default class Gameplay3 extends Phaser.Scene {
     this.physics.pause();
     this.reanudar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+    this.textopausa= this.add.text(396,330, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
@@ -273,6 +307,7 @@ export default class Gameplay3 extends Phaser.Scene {
     this.Popup.setDepth(3);
     
     this.pausado = true;
+    
     
    
     this.salir = this.add.sprite(300, 410, "BtnSalir");
@@ -294,6 +329,7 @@ export default class Gameplay3 extends Phaser.Scene {
     this.salir.setVisible(false).setActive(false);
     //this.ganar.setVisible(false).setActive(false);
     this.pausado = false;
+    this.textopausa.setVisible(false).setActive(false);
    // this.tiempoTranscurrido.resume();
   }
 
@@ -303,7 +339,7 @@ export default class Gameplay3 extends Phaser.Scene {
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
     this.ganar.setDepth(3);
-    this.add.text(390,345, this.enemigosderrotados ).setDepth(3);    
+    this.textopausa= this.add.text(400,335, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
@@ -338,9 +374,9 @@ export default class Gameplay3 extends Phaser.Scene {
   }
   escenaPerder() {
     setTimeout(() => {
-      this.perder = this.add.image(400, 300, "Perdiste");
+      this.perder = this.add.image(395, 315, "Perdiste");
       this.perder.setDepth(3);
-      this.add.text(390,345, this.enemigosderrotados ).setDepth(3);
+      this.add.text(393,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
       this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
@@ -363,7 +399,7 @@ export default class Gameplay3 extends Phaser.Scene {
   }
   reiniciarJuego() {
     this.scene.restart();
-   // this.pausado = false;
+   this.pausado = false;
    // this.physics.resume();
     this.vidas= 3
     this.tiempoTranscurrido = 0

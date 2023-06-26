@@ -42,16 +42,16 @@ export default class SeleccionNivel extends Phaser.Scene {
         this.scene.start("menuprincipal")
       }
       empezarNivel1(){  
-        this.scene.start("gameplay")
+        this.scene.start("nivel1")
 
       }
       empezarNivel2(){  
-        this.scene.start("gameplay2")
+        this.scene.start("nivel2")
 
 
       }
       empezarNivel3(){
-        this.scene.start("gameplay3")
+        this.scene.start("nivel3")
 
       }
 

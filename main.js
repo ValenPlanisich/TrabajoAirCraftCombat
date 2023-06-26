@@ -1,11 +1,13 @@
 import MenuPrincipal from "./assets/scenes/MenuPrincipal.js";
 import SeleccionNivel from "./assets/scenes/SeleccionNivel.js";
-import Gameplay from "./assets/scenes/Gameplay.js";
+import Nivel1 from "./assets/scenes/Nivel1.js";
 import Derrota from "./assets/scenes/Derrota.js";
 import Victoria from "./assets/scenes/Victoria.js";
-import Gameplay2 from "./assets/scenes/Gameplay2.js";
-import Gameplay3 from "./assets/scenes/Gameplay3.js";
 import Informacion from "./assets/scenes/Informacion.js";
+import Nivel2 from "./assets/scenes/Nivel2.js";
+import Nivel3 from "./assets/scenes/NIvel3.js"; 
+
+
 
 
 
@@ -36,7 +38,7 @@ const config = {
   // List of scenes to load
   // Only the first scene will be shown
   // Remember to import the scene before adding it to the list
-  scene: [SeleccionNivel, Gameplay3,Informacion, ,MenuPrincipal, Gameplay2,Gameplay, Derrota, Victoria,],
+  scene: [Nivel2, Nivel3,Nivel1, SeleccionNivel,Informacion, ,MenuPrincipal, Derrota, Victoria,],
 };
 
 // Create a new Phaser game instance
