@@ -12,10 +12,7 @@ export default class MenuPrincipal extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Portada","assets/images/PortadaOficial.png");
-    this.load.image("MisilJugar","assets/images/Misiljugar.png");
-    this.load.image("MisilInfo","assets/images/MisilInf.png");
-    this.load.image("MisilInfinito","assets/images/MisilInfinito.png");
+
   }
 
   create() {

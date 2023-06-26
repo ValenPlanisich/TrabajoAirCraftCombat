@@ -145,8 +145,7 @@ export default class Juego3 extends Phaser.Scene {
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++}
-    console.log("Tiempo"); 
-
+    if (this.tiempoTranscurrido == 120) {tiempo}
     }
   avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
