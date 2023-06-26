@@ -8,44 +8,11 @@ export default class Nivel2 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Fondo2", "assets/Images/Fondo2.png");
-    this.load.image("Avion", "assets/Images/Avion.png");
-    this.load.image("Enemigo", "assets/Images/Enemigo.png");
-    this.load.image("Bala", "assets/Images/Bala.png");
-    this.load.image("Nube1", "assets/Images/Nube 1.png");
-    this.load.image("Nube2", "assets/Images/Nube 2.png");
-    this.load.image("Nube3", "assets/Images/Nube 3.png");
-    this.load.image("Nube4", "assets/Images/Nube 4.png");
-    this.load.image("Montaña1", "assets/Images/Montaña 1.png");
-    this.load.image("Montaña2", "assets/Images/Montaña 2.png");
-    this.load.image("Montaña3", "assets/Images/Montaña 3.png");
-    this.load.image("Montaña4", "assets/Images/Montaña 4.png");
-    this.load.image("Montaña5", "assets/Images/Montaña 5.png");
-    this.load.image("3Vidas", "assets/Images/3Vidas.png");
-    this.load.image("2Vidas", "assets/Images/2Vidas.png");
-    this.load.image("1Vidas", "assets/Images/1Vidas.png");
-    this.load.image("0Vidas", "assets/Images/0Vidas.png");
-    this.load.image("Pausa", "assets/Images/BotonPausa.png");
-    this.load.image("POPUP", "assets/Images/PopUpPausaTiempo.png");
-    this.load.image("Ganaste", "assets/Images/PopUpVictoriaTiempo.png");
-    this.load.image("Perdiste", "assets/Images/PopUpDerrotaTiempo.png");
-    this.load.image("Reanudar", "assets/Images/BotonReanudar.png");
-    this.load.image("BtnSalir", "assets/Images/BotonMenu.png");
-    this.load.image("BtnReiniciar", "assets/Images/BotonReiniciar.png");
-    this.load.image("MedallaOro", "assets/Images/MedallaOro.png")
-    this.load.image("MedallaPlata", "assets/Images/MedallaPlata.png")
-    this.load.image("MedallaBronce", "assets/Images/MedallaBronce.png")
-    this.load.image("Misil", "assets/Images/Misil.png");
-
-    this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
-      frameWidth: 128,
-      frameHeight: 128
-    });
+ 
   }
-
   create() {
-    this.add.image(400, 300, "Fondo2");
-    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
+    this.add.image(400, 300, "FondoNivel2");
+    this.avion = this.physics.add.anims(100, 300, "Avion").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -128,9 +95,9 @@ export default class Nivel2 extends Phaser.Scene {
       });
     this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
-    
     this.Pausa.setDepth(2)
     this.textoTiempo = this.add.text(557, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
+
   }
 
   update() {
@@ -309,7 +276,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.physics.pause();
     this.reanudar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-    this.textopausa= this.add.text(396,330, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
+    this.textopausa= this.add.text(396,330, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
@@ -319,7 +286,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     
-    this.Popup = this.add.image(400, 300, "POPUP").setVisible(false);
+    this.Popup = this.add.image(400, 300, "POPUPTiempo").setVisible(false);
     this.Popup.setVisible(true);
     this.Popup.setDepth(3);
     
@@ -354,9 +321,9 @@ export default class Nivel2 extends Phaser.Scene {
       this.scene.start("SeleccionNivel");
     }
   escenaGanar() {
-    this.ganar = this.add.image(400, 300, "Ganaste");
+    this.ganar = this.add.image(400, 300, "GanasteTiempo", true); this
     this.ganar.setDepth(3);
-    this.textopausa= this.add.text(400,335, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
+    this.textopausa= this.add.text(400,335, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
@@ -391,9 +358,9 @@ export default class Nivel2 extends Phaser.Scene {
   }
   escenaPerder() {
     setTimeout(() => {
-      this.perder = this.add.image(395, 315, "Perdiste");
+      this.perder = this.add.image(395, 315, "PerdisteTiempo");
       this.perder.setDepth(3);
-      this.add.text(393,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
+      this.add.text(393,337, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
       this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);

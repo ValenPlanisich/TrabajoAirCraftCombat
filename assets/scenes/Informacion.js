@@ -1,6 +1,6 @@
 // URL to explain PHASER scene: https://rexrainbow.github.io/phaser3-rex-notes/docs/site/scene/
 
-export default class ManuPrincipal extends Phaser.Scene {
+export default class Informacion extends Phaser.Scene {
   constructor() {
     // key of the scene
     // the key will be used to start the scene by other scenes
@@ -12,7 +12,7 @@ export default class ManuPrincipal extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Portada","assets/images/Portada.png");
+    this.load.image("PortadaOficial","assets/images/PortadaOficial.png");
     this.load.image("MisilJugar","assets/images/Misiljugar.png");
     this.load.image("MisilInfo","assets/images/MisilInf.png");
   }
