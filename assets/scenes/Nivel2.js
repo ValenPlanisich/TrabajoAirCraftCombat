@@ -120,6 +120,12 @@ export default class Nivel2 extends Phaser.Scene {
         frameRate: 4,
         repeat: 0
       });
+      this.anims.create({
+        key: "ExplosionEnemigos",
+        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 3 }),
+        frameRate : 8,
+        repeat: 0
+      });
     this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
@@ -128,10 +134,10 @@ export default class Nivel2 extends Phaser.Scene {
   }
 
   update() {
-    if (this.cursors.left.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
     }
-    else if (this.cursors.right.isDown) {
+    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
 
     }
@@ -139,10 +145,10 @@ export default class Nivel2 extends Phaser.Scene {
       this.avion.setVelocityX(0);
     }
 
-    if (this.cursors.up.isDown) {
+    if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
     }
-    else if (this.cursors.down.isDown) {
+    else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
         }
     else {this.avion.setVelocityY(0)}
@@ -161,6 +167,8 @@ export default class Nivel2 extends Phaser.Scene {
   }
   avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
+    this.explosionEnemigo(enemigo.x, enemigo.y,this.misil.x,this.misil.y)
+
     switch (this.vidas) {
       case 2:
         this.vidasImagen.setTexture("2Vidas");
@@ -274,6 +282,15 @@ export default class Nivel2 extends Phaser.Scene {
       this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
     }, this);
     this.explosion.play("Explosion");
+  }
+  explosionEnemigo(x, y) {
+    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
+    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosionenemigo.on("animationcomplete", () => {
+      this.explosionenemigo.destroy()
+    }, this);
+    this.explosionenemigo.play("ExplosionEnemigos");
+
   }
   //puntaje() {
   //  this.enemigosderrotados ++
