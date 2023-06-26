@@ -1,6 +1,6 @@
-export default class Nivel3 extends Phaser.Scene {
+export default class Juego3 extends Phaser.Scene {
   constructor() {
-    super("nivel3");
+    super("Juego3");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
@@ -8,45 +8,11 @@ export default class Nivel3 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("Fondo", "assets/Images/Fondo3.png");
-    this.load.image("Avion", "assets/Images/Avion.png");
-    this.load.image("Enemigo", "assets/Images/Enemigo.png");
-    this.load.image("Bala", "assets/Images/Bala.png");
-    this.load.image("Nube1", "assets/Images/Nube 1.png");
-    this.load.image("Nube2", "assets/Images/Nube 2.png");
-    this.load.image("Nube3", "assets/Images/Nube 3.png");
-    this.load.image("Nube4", "assets/Images/Nube 4.png");
-    this.load.image("Montaña1", "assets/Images/Montaña 1.png");
-    this.load.image("Montaña2", "assets/Images/Montaña 2.png");
-    this.load.image("Montaña3", "assets/Images/Montaña 3.png");
-    this.load.image("Montaña4", "assets/Images/Montaña 4.png");
-    this.load.image("Montaña5", "assets/Images/Montaña 5.png");
-    this.load.image("3Vidas", "assets/Images/3Vidas.png");
-    this.load.image("2Vidas", "assets/Images/2Vidas.png");
-    this.load.image("1Vidas", "assets/Images/1Vidas.png");
-    this.load.image("0Vidas", "assets/Images/0Vidas.png");
-    this.load.image("Pausa", "assets/Images/BotonPausa.png");
-    this.load.image("POPUP", "assets/Images/PopUpPausa.png");
-    this.load.image("Ganaste", "assets/Images/PopUpVictoria.png");
-    this.load.image("Perdiste", "assets/Images/PopUpDerrota.png");
-    this.load.image("Reanudar", "assets/Images/BotonReanudar.png");
-    this.load.image("BtnSalir", "assets/Images/BotonMenu.png");
-    this.load.image("BtnReiniciar", "assets/Images/BotonReiniciar.png");
-    this.load.image("MedallaOro", "assets/Images/MedallaOro.png")
-    this.load.image("MedallaPlata", "assets/Images/MedallaPlata.png")
-    this.load.image("MedallaBronce", "assets/Images/MedallaBronce.png")
-    this.load.image("Misil", "assets/Images/Misil.png");
-  
 
-
-    this.load.spritesheet("Explosion", "assets/Images/ExplosionSprite.png", {
-      frameWidth: 128,
-      frameHeight: 128
-    });
   }
 
   create() {
-    this.add.image(400, 300, "Fondo");
+    this.add.image(400, 300, "FondoNivel3");
     this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
@@ -67,6 +33,7 @@ export default class Nivel3 extends Phaser.Scene {
       null,
       this
     );
+    
     this.physics.add.overlap(
       this.bala,
       this.enemigo,
@@ -82,6 +49,7 @@ export default class Nivel3 extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+    
     this.time.addEvent({
       delay: 2000,
       callback: this.agregarNube,
@@ -117,7 +85,7 @@ export default class Nivel3 extends Phaser.Scene {
       .setScale(0.7);
      this.anims.create({
         key: "Explosion",
-        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 10 }),
+        frames: this.anims.generateFrameNumbers("Explosion", { start: 0, end: 10 }),
         frameRate: 4,
         repeat: 0
       });
@@ -127,6 +95,7 @@ export default class Nivel3 extends Phaser.Scene {
         frameRate : 10,
         repeat: 0
       });
+
     
       this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
@@ -140,23 +109,35 @@ export default class Nivel3 extends Phaser.Scene {
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
+    //  this.avion.anims.play("Izquierda", true);
+
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
+    //  this.avion.anims.play("Derecha", true);
 
     }
     else {
       this.avion.setVelocityX(0);
+    //  this.avion.anims.play("Quieto",true);
+
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
+    //  this.avion.anims.play("Arriba",true);
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
+     //     this.avion.anims.play("Abajo",true);
+
         }
-    else {this.avion.setVelocityY(0)}
-  
+    else {
+      this.avion.setVelocityY(0)
+    //  this.avion.anims.play("Quieto",true);
+
+    }
+        
   
 
     this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
@@ -272,9 +253,6 @@ export default class Nivel3 extends Phaser.Scene {
     montaña.body.setVelocityX(-150);
     montaña.setSize(1, 1);
     montaña.setDepth(2);
-    if(this.vidas===0){
-      montaña.setVelocityX(0);
-    }
 
   }
 

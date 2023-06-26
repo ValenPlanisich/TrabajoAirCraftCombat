@@ -26,7 +26,7 @@ export default class SeleccionNivel extends Phaser.Scene {
         this.nivel1.setInteractive().on("pointerup", this.empezarNivel1, this);
        
         this.nivel2 = this.add.image(400,330, "BtnNivel2").setScale().setInteractive();
-        this.nivel2.setInteractive().on("pointerup", this.empezarNivel3, this);
+        this.nivel2.setInteractive().on("pointerup", this.empezarNivel2, this);
        
         this.nivel3 = this.add.image(570,330, "BtnNivel3").setScale().setInteractive();
         this.nivel3.setInteractive().on("pointerup", this.empezarNivel3, this);
@@ -47,11 +47,9 @@ export default class SeleccionNivel extends Phaser.Scene {
       }
       empezarNivel2(){  
         this.scene.start("nivel2")
-
-
       }
       empezarNivel3(){
-        this.scene.start("nivel3")
+        this.scene.start("Juego3")
 
       }
 
