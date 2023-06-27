@@ -26,7 +26,7 @@ export default class MenuPrincipal extends Phaser.Scene {
     this.informacion = this.add.image(950, 725, "MisilControles");
     this.informacion.setInteractive();
     this.informacion.on("pointerdown", () => {
-         this.scene.start("controles");
+         this.scene.start("menucontroles"); //esta bugueada, manda al nivel infinito
 
           this.menu.stop()
         });
