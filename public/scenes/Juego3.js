@@ -44,7 +44,7 @@ export default class Juego3 extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1800,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -63,7 +63,7 @@ export default class Juego3 extends Phaser.Scene {
       loop: true
     });
     this.time.addEvent({
-      delay: 1200,
+      delay: 1800,
       callback: this.addMisil,
       callbackScope: this,
       loop: true,
@@ -141,8 +141,8 @@ export default class Juego3 extends Phaser.Scene {
         
   
 
-    this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
-    this.textoTiempo.setText(this.tiempoTranscurrido, this); this
+    this.textoenemigoderrotado.setText(this.enemigosderrotados + "/30"); this
+    this.textoTiempo.setText(this.tiempoTranscurrido + "/90"); this
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++}
@@ -280,7 +280,7 @@ export default class Juego3 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 5 && this.tiempoTranscurrido >=10
+    if (this.enemigosderrotados >= 30 && this.tiempoTranscurrido >=60
        && this.vidas >= 1) {
       this.escenaGanar();
     }

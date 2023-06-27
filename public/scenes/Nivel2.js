@@ -41,7 +41,7 @@ export default class Nivel2 extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 1500,
+      delay: 1800,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -60,7 +60,7 @@ export default class Nivel2 extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 1200,
+      delay: 1800,
       callback: this.addMisil,
       callbackScope: this,
       loop: true,
@@ -133,12 +133,12 @@ export default class Nivel2 extends Phaser.Scene {
     else {this.avion.setVelocityY(0)
 
       }
-    this.textoTiempo.setText(this.tiempoTranscurrido, this); this
+    this.textoTiempo.setText(this.tiempoTranscurrido + "/45"); this
 
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++}
-    if (this.tiempoTranscurrido >= 20 && this.vidas >= 1){
+    if (this.tiempoTranscurrido >= 45 && this.vidas >= 1){
       this.escenaGanar(); 
 
     }
@@ -386,7 +386,7 @@ export default class Nivel2 extends Phaser.Scene {
       this.perder = this.add.image(395, 315, "PerdisteTiempo");
       this.perder.setDepth(3);
       this.add.text(393,350, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
-      this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
+      this.reiniciar = this.add.sprite(480, 425, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
       this.reiniciar.setScale();
@@ -394,7 +394,7 @@ export default class Nivel2 extends Phaser.Scene {
       this.reiniciar.setVisible(true).setActive(true);
       this.scene.bringToTop();
       
-      this.salir = this.add.sprite(300, 410, "BtnSalir");
+      this.salir = this.add.sprite(300, 425, "BtnSalir");
       this.salir.setInteractive();
       this.salir.on("pointerdown", () => this.salirJuego(), this);
       this.salir.setScale();

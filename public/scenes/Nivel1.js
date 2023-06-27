@@ -39,7 +39,7 @@ export default class Nivel1 extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1800,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -84,7 +84,7 @@ export default class Nivel1 extends Phaser.Scene {
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(677, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
+    this.textoenemigoderrotado = this.add.text(677, 14, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
     this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
     this.musicaniveles.play();
     this.musicavictoria = this.sound.add("MusicaVictoria", {loop: false, volume: 1});
@@ -123,7 +123,7 @@ export default class Nivel1 extends Phaser.Scene {
       }
 
 
-    this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
+    this.textoenemigoderrotado.setText(this.enemigosderrotados + "/25"); this
 
   }
 
@@ -254,7 +254,7 @@ export default class Nivel1 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 10
+    if (this.enemigosderrotados >= 25
        && this.vidas >= 1) {
       this.escenaGanar();
     }
