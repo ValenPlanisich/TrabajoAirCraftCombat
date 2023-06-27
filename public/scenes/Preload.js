@@ -52,13 +52,17 @@ export default class Preload extends Phaser.Scene {
         this.load.image("BtnNivel2","./public/Images/BotonNivel2.png");
         this.load.image("BtnNivel3","./public/Images/BotonNivel3.png");
         this.load.image("BtnVolver","./public/Images/BotonVolver.png");
-        this.load.image("JugadorQuieto","./public/Images/Jugador2.png")
-        this.load.image("JugadorIzquierda","./public/Images/Jugador1.png")
+        this.load.image("JugadorQuieto","./public/Images/Jugador1.png")
+        this.load.image("JugadorIzquierda","./public/Images/Jugador2.png")
         this.load.image("JugadorDerecha","./public/Images/Jugador3.png")
         this.load.image("JugadorArriba","./public/Images/Jugador4.png")
         this.load.image("JugadorAbajo","./public/Images/Jugador5.png");
         this.load.audio("MusicaMenu","./public/Images/battleThemeB.mp3")
         this.load.audio("MusicaNiveles", "./public/Images/TheTreadofwar.mp3")
+        this.load.audio("MusicaVictoria","./public/Images/Musicadevictoria.mp3")
+        this.load.audio("MusicaDerrota", "./public/Images/GameOver.mp3")
+        this.load.audio("ExplosionYo","./public/Images/explosionyo.mp3")
+        this.load.audio("ExplosionMalos","./public/Images/explosionmalos.mp3")
 
         this.load.spritesheet("Movimiento", "./public/Images/MovimientoAvion.png", {
           frameWidth: 128,
@@ -73,37 +77,7 @@ export default class Preload extends Phaser.Scene {
       }
     
       create() {
-     /*  this.anims.create({
-          key: "Arriba",
-          frames: this.anims.generateFrameNumbers("Movimiento", { start: 3, end: 4 }),
-          frameRate: 4,
-          repeat: -1
-        });
-        this.anims.create({
-          key: "Abajo",
-          frames: this.anims.generateFrameNumbers("Movimiento", { start: 5, end: 6 }),
-          frameRate: 4,
-          repeat: -1
-        });
-        this.anims.create({
-          key: "Derecha",
-          frames: ({key: "Movimiento",  frame: 1 }),
-          frameRate: 4,
-          repeat: -1
-        });
-        this.anims.create({
-          key: "Izquierda",
-          frames: ({key: "Movimiento",  frame: 2 }),
-          frameRate: 4,
-          repeat: -1
-        });
-        this.anims.create({
-          key: "Quieto",
-          frames: ({key: "MovimientoAvion",  frame: 0 }),
-          frameRate: 4,
-          repeat: -1
-        });
-      */
+    
         this.scene.start("menuprincipal")
         
 

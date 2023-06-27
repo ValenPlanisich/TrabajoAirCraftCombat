@@ -78,7 +78,7 @@ export default class NivelInfinito extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", this.disparar, this);
 
     this.vidasImagen = this.add
-      .image(750, 10, "3Vidas")
+      .image(120, 10, "3Vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
 
@@ -98,37 +98,47 @@ export default class NivelInfinito extends Phaser.Scene {
         repeat: 0
       });
     
-      this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
+      this.Pausa = this.add.image(770,27, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(575, 20, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
-    this.textoTiempo = this.add.text(397, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
+    this.textoenemigoderrotado = this.add.text(710, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
+    this.textoTiempo = this.add.text(565, 17,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
     this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
     this.musicaniveles.play();
+    this.musicaderrota = this.sound.add("MusicaDerrota", {loop: false, volume: 1});
+    this.explosionyo = this.sound.add("ExplosionYo", {loop: false, volume: 1});
+    this.explosionmalos = this.sound.add("ExplosionMalos", {loop: false, volume: 1});
+
   }
   
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
+      this.avion.setTexture("JugadorIzquierda")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
+      this.avion.setTexture("JugadorDerecha")
 
     }
     else {
       this.avion.setVelocityX(0);
+      this.avion.setTexture("JugadorQuieto")
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
+      this.avion.setTexture("JugadorArriba")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
+          this.avion.setTexture("JugadorAbajo")
         }
-    else {this.avion.setVelocityY(0)}
-  
+    else {this.avion.setVelocityY(0)
 
+      }
+        
     this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
     this.textoTiempo.setText(this.tiempoTranscurrido, this); this
   }
@@ -152,7 +162,7 @@ export default class NivelInfinito extends Phaser.Scene {
         break;
     }
     
-    this.vidasImagen.x = 750;
+    this.vidasImagen.x = 120;
     this.vidasImagen.y = 10;
     enemigo.destroy();
     if (this.vidas === 0) {
@@ -255,6 +265,7 @@ export default class NivelInfinito extends Phaser.Scene {
       this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
     }, this);
     this.explosion.play("Explosion");
+    this.explosionyo.play()
   }
   explosionEnemigo(x, y) {
     this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
@@ -263,6 +274,7 @@ export default class NivelInfinito extends Phaser.Scene {
       this.explosionenemigo.destroy()
     }, this);
     this.explosionenemigo.play("ExplosionEnemigos");
+    this.explosionmalos.play()
     
   }
   puntaje() {
@@ -328,6 +340,9 @@ export default class NivelInfinito extends Phaser.Scene {
       this.vidas= 3
       this.tiempoTranscurrido = 0
       this.enemigosderrotados = 0
+      this.musicaniveles.stop()
+      this.musicaderrota.stop()
+
     }
 
   escenaPerder() {
@@ -350,10 +365,13 @@ export default class NivelInfinito extends Phaser.Scene {
       this.salir.setDepth(4);
       this.salir.setVisible(true).setActive(true);
       this.scene.bringToTop();
+      this.musicaderrota.play();
     
     }, 1000);
     this.pausado = true;
     this.physics.pause();
+    this.musicaniveles.stop()
+
   }
   reiniciarJuego() {
     this.scene.restart();
@@ -362,6 +380,7 @@ export default class NivelInfinito extends Phaser.Scene {
     this.vidas= 3
     this.tiempoTranscurrido = 0
     this.enemigosderrotados = 0
+    this.musicaderrota.stop();
   
   }
 

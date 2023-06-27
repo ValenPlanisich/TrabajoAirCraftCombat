@@ -87,6 +87,11 @@ export default class Nivel1 extends Phaser.Scene {
     this.textoenemigoderrotado = this.add.text(677, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
     this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
     this.musicaniveles.play();
+    this.musicavictoria = this.sound.add("MusicaVictoria", {loop: false, volume: 1});
+    this.musicaderrota = this.sound.add("MusicaDerrota", {loop: false, volume: 1});
+    this.explosionyo = this.sound.add("ExplosionYo", {loop: false, volume: 1});
+    this.explosionmalos = this.sound.add("ExplosionMalos", {loop: false, volume: 1});
+
     
   }
 
@@ -152,6 +157,8 @@ export default class Nivel1 extends Phaser.Scene {
     bala.destroy();
     enemigo.destroy();
     this.puntaje()
+    this.explosionEnemigo(enemigo.x, enemigo.y)
+
     //console.log("Enemigo derrotado");
   }
 
@@ -230,6 +237,8 @@ export default class Nivel1 extends Phaser.Scene {
       this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
     }, this);
     this.explosion.play("Explosion");
+    this.explosionyo.play();
+
   }
   explosionEnemigo(x, y) {
     this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
@@ -238,6 +247,8 @@ export default class Nivel1 extends Phaser.Scene {
       this.explosionenemigo.destroy()
     }, this);
     this.explosionenemigo.play("ExplosionEnemigos");
+    this.explosionmalos.play();
+
 
   }
   puntaje() {
@@ -303,6 +314,7 @@ export default class Nivel1 extends Phaser.Scene {
       this.tiempoTranscurrido = 0
       this.enemigosderrotados = 0
       this.musicaniveles.stop()
+      this.musicaderrota.stop();
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
@@ -332,6 +344,7 @@ export default class Nivel1 extends Phaser.Scene {
     this.Bronce = this.add.image(455, 254, "MedallaBronce").setDepth(4)
 
     this.musicaniveles.stop()
+    this.musicavictoria.play();
 
     if (this.vidas === 2){
       this.Oro.setVisible(false)
@@ -362,11 +375,12 @@ export default class Nivel1 extends Phaser.Scene {
       this.salir.setDepth(4);
       this.salir.setVisible(true).setActive(true);
       this.scene.bringToTop();
-    
+      this.musicaderrota.play();
     }, 1000);
     this.pausado = true;
     this.physics.pause();
     this.musicaniveles.stop()
+    
   }
   reiniciarJuego() {
     this.scene.restart();
@@ -375,6 +389,8 @@ export default class Nivel1 extends Phaser.Scene {
     this.vidas= 3
     this.tiempoTranscurrido = 0
     this.enemigosderrotados = 0
+    this.musicaderrota.stop();
+    
   
   }
 
