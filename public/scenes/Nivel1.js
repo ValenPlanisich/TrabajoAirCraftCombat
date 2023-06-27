@@ -13,7 +13,7 @@ export default class Nivel1 extends Phaser.Scene {
 
   create() {
     this.add.image(400, 300, "FondoNivel1");
-    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
+    this.avion = this.physics.add.sprite(100, 300, "JugadorQuieto").setScale(1.2).setInteractive()
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -90,23 +90,30 @@ export default class Nivel1 extends Phaser.Scene {
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
+      this.avion.setTexture("JugadorIzquierda")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
+      this.avion.setTexture("JugadorDerecha")
 
     }
     else {
       this.avion.setVelocityX(0);
+      this.avion.setTexture("JugadorQuieto")
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
+      this.avion.setTexture("JugadorArriba")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
+          this.avion.setTexture("JugadorAbajo")
         }
-    else {this.avion.setVelocityY(0)}
-  
+    else {this.avion.setVelocityY(0)
+
+      }
+
 
     this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
 
@@ -233,7 +240,7 @@ export default class Nivel1 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 1
+    if (this.enemigosderrotados >= 100
        && this.vidas >= 1) {
       this.escenaGanar();
     }

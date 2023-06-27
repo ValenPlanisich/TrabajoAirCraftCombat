@@ -109,34 +109,29 @@ export default class Juego3 extends Phaser.Scene {
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
-    //  this.avion.anims.play("Izquierda", true);
-
+      this.avion.setTexture("JugadorIzquierda")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
-    //  this.avion.anims.play("Derecha", true);
+      this.avion.setTexture("JugadorDerecha")
 
     }
     else {
       this.avion.setVelocityX(0);
-    //  this.avion.anims.play("Quieto",true);
-
+      this.avion.setTexture("JugadorQuieto")
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
-    //  this.avion.anims.play("Arriba",true);
+      this.avion.setTexture("JugadorArriba")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
-     //     this.avion.anims.play("Abajo",true);
-
+          this.avion.setTexture("JugadorAbajo")
         }
-    else {
-      this.avion.setVelocityY(0)
-    //  this.avion.anims.play("Quieto",true);
+    else {this.avion.setVelocityY(0)
 
-    }
+      }
         
   
 

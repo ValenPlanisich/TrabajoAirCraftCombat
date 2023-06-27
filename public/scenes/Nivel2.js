@@ -103,24 +103,29 @@ export default class Nivel2 extends Phaser.Scene {
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
+      this.avion.setTexture("JugadorIzquierda")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
+      this.avion.setTexture("JugadorDerecha")
 
     }
     else {
       this.avion.setVelocityX(0);
+      this.avion.setTexture("JugadorQuieto")
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
+      this.avion.setTexture("JugadorArriba")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
+          this.avion.setTexture("JugadorAbajo")
         }
-    else {this.avion.setVelocityY(0)}
-  
+    else {this.avion.setVelocityY(0)
 
+      }
     this.textoTiempo.setText(this.tiempoTranscurrido, this); this
 
   }

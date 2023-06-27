@@ -46,11 +46,17 @@ export default class Preload extends Phaser.Scene {
         this.load.image("MisilJugar","./public/images/MisilJugar.png");
         this.load.image("MisilControles","./public/images/MisilControles.png");
         this.load.image("MisilInfinito","./public/images/MisilModoInfinito.png");
-        this.load.image("FondoNivele","public/Images/FondoEleccionNivel.png");
-        this.load.image("BtnNivel1","public/Images/BotonNivel1.png");
-        this.load.image("BtnNivel2","public/Images/BotonNivel2.png");
-        this.load.image("BtnNivel3","public/Images/BotonNivel3.png");
-        this.load.image("BtnVolver","public/Images/BotonVolver.png");
+        this.load.image("FondoNivele","./public/Images/FondoEleccionNivel.png");
+        this.load.image("BtnNivel1","./public/Images/BotonNivel1.png");
+        this.load.image("BtnNivel2","./public/Images/BotonNivel2.png");
+        this.load.image("BtnNivel3","./public/Images/BotonNivel3.png");
+        this.load.image("BtnVolver","./public/Images/BotonVolver.png");
+        this.load.image("JugadorQuieto","./public/Images/Jugador2.png")
+        this.load.image("JugadorIzquierda","./public/Images/Jugador1.png")
+        this.load.image("JugadorDerecha","./public/Images/Jugador3.png")
+        this.load.image("JugadorArriba","./public/Images/Jugador4.png")
+        this.load.image("JugadorAbajo","./public/Images/Jugador5.png");
+
         this.load.spritesheet("Movimiento", "./public/Images/MovimientoAvion.png", {
           frameWidth: 128,
           frameHeight: 128
