@@ -9,9 +9,9 @@ export default class Preload extends Phaser.Scene {
       }
     
       preload() {
-        this.load.image("FondoNivel1", "./public/Images/Fondo1.png");
-        this.load.image("FondoNivel2", "./public/Images/Fondo2.png");
-        this.load.image("FondoNivel3", "./public/Images/Fondo3.png");
+        this.load.image("FondoNivel1", "./public/Images/FondoNivel1.png");
+        this.load.image("FondoNivel2", "./public/Images/FondoNivel2.png");
+        this.load.image("FondoNivel3", "./public/Images/FondoNivel3.png");
         this.load.image("Avion", "./public/Images/Avion.png");
         this.load.image("Enemigo", "./public/Images/Enemigo.png");
         this.load.image("Bala", "./public/Images/Bala.png");
@@ -42,10 +42,15 @@ export default class Preload extends Phaser.Scene {
         this.load.image("POPUPTiempo", "./public/Images/PopUpPausaTiempo.png");
         this.load.image("GanasteTiempo", "./public/Images/PopUpVictoriaTiempo.png");
         this.load.image("PerdisteTiempo", "./public/Images/PopUpDerrotaTiempo.png");
-        this.load.image("Portada","./public/images/Portada.png");
+        this.load.image("Portada","./public/images/FondoMenu.png");
         this.load.image("MisilJugar","./public/images/MisilJugar.png");
-        this.load.image("MisilInfo","./public/images/MisilInformacion.png");
+        this.load.image("MisilControles","./public/images/MisilControles.png");
         this.load.image("MisilInfinito","./public/images/MisilModoInfinito.png");
+        this.load.image("FondoNivele","public/Images/FondoEleccionNivel.png");
+        this.load.image("BtnNivel1","public/Images/BotonNivel1.png");
+        this.load.image("BtnNivel2","public/Images/BotonNivel2.png");
+        this.load.image("BtnNivel3","public/Images/BotonNivel3.png");
+        this.load.image("BtnVolver","public/Images/BotonVolver.png");
         this.load.spritesheet("Movimiento", "./public/Images/MovimientoAvion.png", {
           frameWidth: 128,
           frameHeight: 128

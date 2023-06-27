@@ -1,16 +1,16 @@
-import MenuPrincipal from "./assets/scenes/MenuPrincipal.js";
-import SeleccionNivel from "./assets/scenes/SeleccionNivel.js";
-import Nivel1 from "./assets/scenes/Nivel1.js";
-import Nivel2 from "./assets/scenes/Nivel2.js";
-import Juego3 from "./assets/scenes/Juego3.js";
-import Preload from "./assets/scenes/Preload.js";
-import Derrota from "./assets/scenes/Derrota.js";
+import MenuPrincipal from "./public/scenes/MenuPrincipal.js";
+import SeleccionNivel from "./public/scenes/SeleccionNivel.js";
+import Nivel1 from "./public/scenes/Nivel1.js";
+import Nivel2 from "./public/scenes/Nivel2.js";
+import Juego3 from "./public/scenes/Juego3.js";
+import Preload from "./public/scenes/Preload.js";
+import Derrota from "./public/scenes/Derrota.js";
 
-import Informacion from "./assets/scenes/Informacion.js";
+import Informacion from "./public/scenes/Informacion.js";
 
 
 
-import NivelInfinito from "./assets/scenes/NivelInfinito.js"; 
+import NivelInfinito from "./public/scenes/NivelInfinito.js"; 
 
 
 

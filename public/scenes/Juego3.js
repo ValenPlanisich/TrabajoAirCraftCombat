@@ -80,7 +80,7 @@ export default class Juego3 extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", this.disparar, this);
 
     this.vidasImagen = this.add
-      .image(750, 10, "3Vidas")
+      .image(120, 10, "3Vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
      this.anims.create({
@@ -97,12 +97,12 @@ export default class Juego3 extends Phaser.Scene {
       });
 
     
-      this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
+      this.Pausa = this.add.image(770,27, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(575, 20, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
-    this.textoTiempo = this.add.text(397, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
+    this.textoenemigoderrotado = this.add.text(710, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
+    this.textoTiempo = this.add.text(565, 17,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
 
   }
   
@@ -163,7 +163,7 @@ export default class Juego3 extends Phaser.Scene {
         break;
     }
     
-    this.vidasImagen.x = 750;
+    this.vidasImagen.x = 120;
     this.vidasImagen.y = 10;
     enemigo.destroy();
     if (this.vidas === 0) {
