@@ -1,6 +1,6 @@
-export default class NivelInfinito extends Phaser.Scene {
+export default class Nivel2 extends Phaser.Scene {
   constructor() {
-    super("nivelinfinito");
+    super("nivel2");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
@@ -8,12 +8,11 @@ export default class NivelInfinito extends Phaser.Scene {
   }
 
   preload() {
-
+ 
   }
-
   create() {
-    this.add.image(400, 300, "Fondo");
-    this.avion = this.physics.add.sprite(100, 300, "Jugador2").setScale(1.2);
+    this.add.image(400, 300, "FondoNivel2");
+    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -25,7 +24,6 @@ export default class NivelInfinito extends Phaser.Scene {
     this.physics.add.overlap(
       this.avion, this.misil, this.avionEnemigoColision,null,this
     )
-
     this.physics.add.overlap(
       this.avion,
       this.enemigo,
@@ -43,7 +41,7 @@ export default class NivelInfinito extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 500,
+      delay: 1500,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -60,13 +58,15 @@ export default class NivelInfinito extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+
     this.time.addEvent({
       delay: 1200,
       callback: this.addMisil,
       callbackScope: this,
       loop: true,
     });
-    const tiempo = this.time.addEvent({
+
+   const tiempo = this.time.addEvent({
       delay: 1000,
       callback: this.cronometro,
       callbackScope: this,
@@ -81,11 +81,7 @@ export default class NivelInfinito extends Phaser.Scene {
       .image(750, 10, "3Vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
-
-
-    
-    
-      this.anims.create({
+     this.anims.create({
         key: "Explosion",
         frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 10 }),
         frameRate: 4,
@@ -97,16 +93,13 @@ export default class NivelInfinito extends Phaser.Scene {
         frameRate : 8,
         repeat: 0
       });
-    
-      this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
+    this.Pausa = this.add.image(30,30, "Pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
-    
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(575, 20, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
-    this.textoTiempo = this.add.text(397, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
+    this.textoTiempo = this.add.text(557, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
 
   }
-  
+
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
@@ -128,17 +121,21 @@ export default class NivelInfinito extends Phaser.Scene {
     else {this.avion.setVelocityY(0)}
   
 
-    this.textoenemigoderrotado.setText(this.enemigosderrotados, this); this
     this.textoTiempo.setText(this.tiempoTranscurrido, this); this
+
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++}
-    console.log("Tiempo"); 
+    if (this.tiempoTranscurrido >= 2 && this.vidas >= 1){
+      this.escenaGanar(); 
 
     }
+    console.log("tiempo");
+  }
   avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
     this.explosionEnemigo(enemigo.x, enemigo.y,this.misil.x,this.misil.y)
+
     switch (this.vidas) {
       case 2:
         this.vidasImagen.setTexture("2Vidas");
@@ -154,6 +151,7 @@ export default class NivelInfinito extends Phaser.Scene {
     this.vidasImagen.x = 750;
     this.vidasImagen.y = 10;
     enemigo.destroy();
+
     if (this.vidas === 0) {
 
       this.crearExplosion(this.avion.x, this.avion.y);
@@ -162,11 +160,10 @@ export default class NivelInfinito extends Phaser.Scene {
     }
   }
   balaEnemigoColision(bala, enemigo) {
-    this.explosionEnemigo(enemigo.x, enemigo.y)
     bala.destroy();
     enemigo.destroy();
     this.puntaje()
-
+    //console.log("Enemigo derrotado");
   }
 
   disparar() {
@@ -191,8 +188,6 @@ export default class NivelInfinito extends Phaser.Scene {
     this.enemigo.setVelocityX(-500);
     enemigo.setSize(90, 30);
     this.enemigo.setDepth(1);
-   
-
     
     //if(this.vidas===0){
     //  this.enemigo.setVelocityX(0);
@@ -264,15 +259,14 @@ export default class NivelInfinito extends Phaser.Scene {
     this.explosionenemigo.play("ExplosionEnemigos");
 
   }
-  puntaje() {
-  this.enemigosderrotados ++
-    console.log("Enemigos derrotados", this.enemigosderrotados);
-  //  if (this.enemigosderrotados >= 5 && this.tiempoTranscurrido >=10
+  //puntaje() {
+  //  this.enemigosderrotados ++
+  //  console.log("Enemigos derrotados", this.enemigosderrotados);
+  //  if (this.enemigosderrotados >= 10
   //     && this.vidas >= 1) {
   //    this.escenaGanar();
   //  }
-  
-   }
+  // }
   pausarJuego() {
     this.reanudar = this.add.sprite(390, 411, "Reanudar");
     this.reanudar.setInteractive();
@@ -282,7 +276,7 @@ export default class NivelInfinito extends Phaser.Scene {
     this.physics.pause();
     this.reanudar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-   this.textopausa= this.add.text(393,335, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
+    this.textopausa= this.add.text(396,330, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
@@ -292,11 +286,12 @@ export default class NivelInfinito extends Phaser.Scene {
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     
-    this.Popup = this.add.image(400, 300, "POPUP").setVisible(false);
+    this.Popup = this.add.image(400, 300, "POPUPTiempo").setVisible(false);
     this.Popup.setVisible(true);
     this.Popup.setDepth(3);
     
     this.pausado = true;
+    
     
    
     this.salir = this.add.sprite(300, 410, "BtnSalir");
@@ -318,18 +313,20 @@ export default class NivelInfinito extends Phaser.Scene {
     this.salir.setVisible(false).setActive(false);
     //this.ganar.setVisible(false).setActive(false);
     this.pausado = false;
+    this.textopausa.setVisible(false).setActive(false);
    // this.tiempoTranscurrido.resume();
-   this.textopausa.setVisible(false).setActive(false);
   }
 
   salirJuego() {
-      this.scene.start("menuprincipal");
+      this.scene.start("SeleccionNivel");
+      this.vidas= 3
+      this.tiempoTranscurrido = 0
+      this.enemigosderrotados = 0
     }
   escenaGanar() {
-    this.ganar = this.add.image(400, 300, "Ganaste");
+    this.ganar = this.add.image(400, 300, "GanasteTiempo", true); this
     this.ganar.setDepth(3);
-    this.add.text(390,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
- 
+    this.textopausa= this.add.text(400,335, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
@@ -364,9 +361,9 @@ export default class NivelInfinito extends Phaser.Scene {
   }
   escenaPerder() {
     setTimeout(() => {
-      this.perder = this.add.image(400, 300, "Perdiste");
+      this.perder = this.add.image(395, 315, "PerdisteTiempo");
       this.perder.setDepth(3);
-      this.add.text(393,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
+      this.add.text(393,337, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
       this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
