@@ -11,8 +11,8 @@ export default class Nivel2 extends Phaser.Scene {
  
   }
   create() {
-    this.add.image(400, 300, "FondoNivel2");
-    this.avion = this.physics.add.sprite(100, 300, "Avion").setScale(1.2);
+    this.add.image(400, 300, "fondonivel2");
+    this.avion = this.physics.add.sprite(100, 300, "jugadorquieto").setScale(1.2);
     this.avion.setCollideWorldBounds(true);
     this.avion.setSize(90, 30);
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -78,31 +78,31 @@ export default class Nivel2 extends Phaser.Scene {
     this.input.keyboard.on("keydown-SPACE", this.disparar, this);
 
     this.vidasImagen = this.add
-      .image(120, 10, "3Vidas")
+      .image(120, 10, "3vidas")
       .setOrigin(1, 0)
       .setScale(0.7);
      this.anims.create({
         key: "Explosion",
-        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 10 }),
+        frames: this.anims.generateFrameNumbers("explosion", { start: 1, end: 10 }),
         frameRate: 4,
         repeat: 0
       });
       this.anims.create({
         key: "ExplosionEnemigos",
-        frames: this.anims.generateFrameNumbers("Explosion", { start: 1, end: 3 }),
+        frames: this.anims.generateFrameNumbers("explosion", { start: 1, end: 3 }),
         frameRate : 8,
         repeat: 0
       });
-    this.Pausa = this.add.image(770,27, "Pausa").setScale().setInteractive();
+    this.Pausa = this.add.image(770,27, "pausa").setScale().setInteractive();
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     this.Pausa.setDepth(2)
     this.textoTiempo = this.add.text(657, 15,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
-    this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
+    this.musicaniveles = this.sound.add("musicaniveles", {loop: true, volume: 1});
     this.musicaniveles.play();
-    this.musicavictoria = this.sound.add("MusicaVictoria", {loop: false, volume: 1});
-    this.musicaderrota = this.sound.add("MusicaDerrota", {loop: false, volume: 1});
-    this.explosionyo = this.sound.add("ExplosionYo", {loop: false, volume: 1});
-    this.explosionmalos = this.sound.add("ExplosionMalos", {loop: false, volume: 1});
+    this.musicavictoria = this.sound.add("musicavictoria", {loop: false, volume: 1});
+    this.musicaderrota = this.sound.add("musicaderrota", {loop: false, volume: 1});
+    this.explosionyo = this.sound.add("explosionyo", {loop: false, volume: 1});
+    this.explosionmalos = this.sound.add("explosionmalos", {loop: false, volume: 1});
 
 
   }
@@ -110,25 +110,25 @@ export default class Nivel2 extends Phaser.Scene {
   update() {
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A).isDown) {
       this.avion.setVelocityX(-350);
-      this.avion.setTexture("JugadorIzquierda")
+      this.avion.setTexture("jugadorizquierda")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
-      this.avion.setTexture("JugadorDerecha")
+      this.avion.setTexture("jugadorderecha")
 
     }
     else {
       this.avion.setVelocityX(0);
-      this.avion.setTexture("JugadorQuieto")
+      this.avion.setTexture("jugadorquieto")
     }
 
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
-      this.avion.setTexture("JugadorArriba")
+      this.avion.setTexture("jugadorarriba")
     }
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S).isDown) {
           this.avion.setVelocityY(350);
-          this.avion.setTexture("JugadorAbajo")
+          this.avion.setTexture("jugadorabajo")
         }
     else {this.avion.setVelocityY(0)
 
@@ -150,13 +150,13 @@ export default class Nivel2 extends Phaser.Scene {
 
     switch (this.vidas) {
       case 2:
-        this.vidasImagen.setTexture("2Vidas");
+        this.vidasImagen.setTexture("2vidas");
         break;
       case 1:
-        this.vidasImagen.setTexture("1Vidas");
+        this.vidasImagen.setTexture("1vidas");
         break;
       case 0:
-        this.vidasImagen.setTexture("0Vidas");
+        this.vidasImagen.setTexture("0vidas");
         break;
     }
     
@@ -183,7 +183,7 @@ export default class Nivel2 extends Phaser.Scene {
     const bala = this.physics.add.sprite(
       this.avion.x + 50,
       this.avion.y,
-      "Bala"
+      "bala"
     );
     this.bala.add(bala);
     bala.setVelocityX(800);
@@ -194,7 +194,7 @@ export default class Nivel2 extends Phaser.Scene {
   addAvion() {
     const randomY = Phaser.Math.RND.between(100, 500);
     const randomX = Phaser.Math.Between(900,1000);
-    const enemigo = this.physics.add.sprite(randomX, randomY, "Enemigo").setScale(
+    const enemigo = this.physics.add.sprite(randomX, randomY, "enemigo").setScale(
       1.2
     );
     this.enemigo.add(enemigo);
@@ -216,7 +216,7 @@ export default class Nivel2 extends Phaser.Scene {
   addMisil(){
     const randomX = Phaser.Math.RND.between(100, 700);
     const randomY = Phaser.Math.Between(-100, -50)
-    const misil = this.physics.add.sprite(randomX, randomY, "Misil").setScale(0.3)
+    const misil = this.physics.add.sprite(randomX, randomY, "misil").setScale(0.3)
     this.misil.add(misil);
     this.misil.setVelocityY(500)
     misil.setSize(50, 190)
@@ -227,7 +227,7 @@ export default class Nivel2 extends Phaser.Scene {
    const nube = this.physics.add.sprite(
       800,
       Phaser.Math.Between(100, 500),
-      Phaser.Math.RND.pick(["Nube1", "Nube2", "Nube3", "Nube4"])
+      Phaser.Math.RND.pick(["nube1", "nube2", "nube3", "nube4"])
     );
     nube.body.setVelocityX(-200);
     nube.setSize(1, 1);
@@ -243,7 +243,7 @@ export default class Nivel2 extends Phaser.Scene {
     const montaña = this.physics.add.sprite(
       1000,
       300,
-      Phaser.Math.RND.pick(["Montaña1","Montaña2","Montaña3","Montaña4","Montaña5"])
+      Phaser.Math.RND.pick(["montaña1","montaña2","montaña3","montaña4","montaña5"])
     );
     montaña.body.setVelocityX(-150);
     montaña.setSize(1, 1);
@@ -255,18 +255,18 @@ export default class Nivel2 extends Phaser.Scene {
   }
 
   crearExplosion(x, y) {
-    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); 
-    this.explosion.setOrigin(0.5, 0.5); 
+    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); // Ajusta el valor de escala según tus necesidades
+    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
     this.explosion.on("animationcomplete", () => {
       this.explosion.destroy();
-      this.avion.disableBody(true, true); 
+      this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
     }, this);
     this.explosion.play("Explosion");
     this.explosionyo.play()
   }
   explosionEnemigo(x, y) {
-    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); 
-    this.explosionenemigo.setOrigin(0.5, 0.5); 
+    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
+    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
     this.explosionenemigo.on("animationcomplete", () => {
       this.explosionenemigo.destroy()
     }, this);
@@ -283,7 +283,7 @@ export default class Nivel2 extends Phaser.Scene {
   //  }
   // }
   pausarJuego() {
-    this.reanudar = this.add.sprite(390, 411, "Reanudar");
+    this.reanudar = this.add.sprite(390, 411, "reanudar");
     this.reanudar.setInteractive();
     this.reanudar.on("pointerdown", () => this.reanudarJuego(), this);
     this.reanudar.setScale();
@@ -293,7 +293,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.scene.bringToTop();
     this.textopausa= this.add.text(396,330, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
     
-    this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
+    this.reiniciar = this.add.sprite(480, 410, "btnreiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
     this.reiniciar.setScale();
@@ -301,7 +301,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     
-    this.Popup = this.add.image(400, 300, "POPUPTiempo").setVisible(false);
+    this.Popup = this.add.image(400, 300, "popuptiempo").setVisible(false);
     this.Popup.setVisible(true);
     this.Popup.setDepth(3);
     
@@ -309,7 +309,7 @@ export default class Nivel2 extends Phaser.Scene {
     
     
    
-    this.salir = this.add.sprite(300, 410, "BtnSalir");
+    this.salir = this.add.sprite(300, 410, "btnsalir");
     this.salir.setInteractive();
     this.salir.on("pointerdown", () => this.salirJuego(), this);
     this.salir.setScale();
@@ -333,7 +333,7 @@ export default class Nivel2 extends Phaser.Scene {
   }
 
   salirJuego() {
-      this.scene.start("SeleccionNivel");
+      this.scene.start("seleccionnivel");
       this.vidas= 3
       this.tiempoTranscurrido = 0
       this.enemigosderrotados = 0
@@ -342,10 +342,10 @@ export default class Nivel2 extends Phaser.Scene {
 
     }
   escenaGanar() {
-    this.ganar = this.add.image(400, 300, "GanasteTiempo", true); this
+    this.ganar = this.add.image(400, 300, "ganastetiempo", true); this
     this.ganar.setDepth(3);
     this.textopausa= this.add.text(400,335, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
-    this.reiniciar = this.add.sprite(480, 410, "BtnReiniciar");
+    this.reiniciar = this.add.sprite(480, 410, "btnreiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
     this.reiniciar.setScale();
@@ -354,7 +354,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.scene.bringToTop();
     
     
-    this.salir = this.add.sprite(300, 410, "BtnSalir");
+    this.salir = this.add.sprite(300, 410, "btnsalir");
     this.salir.setInteractive();
     this.salir.on("pointerdown", () => this.salirJuego(), this);
     this.salir.setScale();
@@ -364,9 +364,9 @@ export default class Nivel2 extends Phaser.Scene {
     this.pausado = true;
     this.physics.pause();
     
-    this.Oro = this.add.image(388,250, "MedallaOro").setDepth(4)
-    this.Plata = this.add.image(320, 250, "MedallaPlata").setDepth(4)
-    this.Bronce = this.add.image(455, 254, "MedallaBronce").setDepth(4)
+    this.Oro = this.add.image(388,250, "medallaoro").setDepth(4)
+    this.Plata = this.add.image(320, 250, "medallaplata").setDepth(4)
+    this.Bronce = this.add.image(455, 254, "medallabronce").setDepth(4)
 
     this.musicaniveles.stop()
     this.musicavictoria.play();
@@ -383,10 +383,10 @@ export default class Nivel2 extends Phaser.Scene {
   }
   escenaPerder() {
     setTimeout(() => {
-      this.perder = this.add.image(395, 315, "PerdisteTiempo");
+      this.perder = this.add.image(395, 315, "perdistetiempo");
       this.perder.setDepth(3);
       this.add.text(393,350, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
-      this.reiniciar = this.add.sprite(480, 425, "BtnReiniciar");
+      this.reiniciar = this.add.sprite(480, 425, "btnreiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
       this.reiniciar.setScale();
@@ -394,7 +394,7 @@ export default class Nivel2 extends Phaser.Scene {
       this.reiniciar.setVisible(true).setActive(true);
       this.scene.bringToTop();
       
-      this.salir = this.add.sprite(300, 425, "BtnSalir");
+      this.salir = this.add.sprite(300, 425, "btnsalir");
       this.salir.setInteractive();
       this.salir.on("pointerdown", () => this.salirJuego(), this);
       this.salir.setScale();

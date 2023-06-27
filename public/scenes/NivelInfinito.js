@@ -258,18 +258,18 @@ export default class NivelInfinito extends Phaser.Scene {
   }
 
   crearExplosion(x, y) {
-    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); // Ajusta el valor de escala según tus necesidades
-    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); 
+    this.explosion.setOrigin(0.5, 0.5); 
     this.explosion.on("animationcomplete", () => {
       this.explosion.destroy();
-      this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
+      this.avion.disableBody(true, true);
     }, this);
     this.explosion.play("Explosion");
     this.explosionyo.play()
   }
   explosionEnemigo(x, y) {
-    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
-    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); 
+    this.explosionenemigo.setOrigin(0.5, 0.5); 
     this.explosionenemigo.on("animationcomplete", () => {
       this.explosionenemigo.destroy()
     }, this);

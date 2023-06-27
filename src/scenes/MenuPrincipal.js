@@ -16,28 +16,28 @@ export default class MenuPrincipal extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "Portada");
-    this.jugar = this.add.image(950, 575, "MisilJugar");
+    this.add.image(400, 300, "portada");
+    this.jugar = this.add.image(950, 575, "misiljugar");
     this.jugar.setInteractive();
     this.jugar.on("pointerdown", () => {
-          this.scene.start("SeleccionNivel");
+          this.scene.start("seleccionnivel");
           this.menu.stop()
         });
-    this.informacion = this.add.image(950, 725, "MisilControles");
+    this.informacion = this.add.image(950, 725, "misilcontroles")
     this.informacion.setInteractive();
     this.informacion.on("pointerdown", () => {
          this.scene.start("menucontroles"); //esta bugueada, manda al nivel infinito
 
           this.menu.stop()
         });
-    this.nivelinfinito = this.add.image(950, 650, "MisilInfinito");
+    this.nivelinfinito = this.add.image(950, 650, "misilinfinito");
     this.nivelinfinito.setInteractive();
     this.nivelinfinito.on("pointerdown", () => {
           this.scene.start("nivelinfinito");
                     this.menu.stop()
         });
 
-    this.menu = this.sound.add("MusicaMenu", {loop: true, volume: 1});
+    this.menu = this.sound.add("musicamenu", {loop: true, volume: 1});
     this.menu.play();
   }
 
@@ -46,4 +46,5 @@ export default class MenuPrincipal extends Phaser.Scene {
 
   update() {
   }
+
 }

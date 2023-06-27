@@ -14,19 +14,19 @@ export default class SeleccionNivel extends Phaser.Scene {
       }
     
       create() {
-        this.add.image(400, 300, "FondoNivele");
-        this.volver = this.add.image(40,40, "BtnVolver").setScale().setInteractive();
+        this.add.image(400, 300, "fondonivele");
+        this.volver = this.add.image(40,40, "btnvolver").setScale().setInteractive();
         this.volver.setInteractive().on("pointerup", this.volverMenu, this);
         
-        this.nivel1 = this.add.image(280,315, "BtnNivel1").setScale().setInteractive();
+        this.nivel1 = this.add.image(280,315, "btnnivel1").setScale().setInteractive();
         this.nivel1.setInteractive().on("pointerup", this.empezarNivel1, this);
        
-        this.nivel2 = this.add.image(400,315, "BtnNivel2").setScale().setInteractive();
+        this.nivel2 = this.add.image(400,315, "btnnivel2").setScale().setInteractive();
         this.nivel2.setInteractive().on("pointerup", this.empezarNivel2, this);
        
-        this.nivel3 = this.add.image(520,315, "BtnNivel3").setScale().setInteractive();
+        this.nivel3 = this.add.image(520,315, "btnnivel3").setScale().setInteractive();
         this.nivel3.setInteractive().on("pointerup", this.empezarNivel3, this);
-        this.menu = this.sound.add("MusicaMenu", {loop: true, volume: 1});
+        this.menu = this.sound.add("musicamenu", {loop: true, volume: 1});
         this.menu.play();
 
       }
@@ -54,7 +54,7 @@ export default class SeleccionNivel extends Phaser.Scene {
       empezarNivel3(){
         this.menu.stop()
 
-        this.scene.start("Juego3") //si le cambio el nombre se buguea y no aparece
+        this.scene.start("Juego3")
 
       }
 
