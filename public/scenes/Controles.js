@@ -1,8 +1,8 @@
-export default class Derrota extends Phaser.Scene {
+export default class Controles extends Phaser.Scene {
     constructor() {
       // key of the scene
       // the key will be used to start the scene by other scenes
-      super("derrota");
+      super("controles");
       }
       init() {
 
@@ -13,6 +13,8 @@ export default class Derrota extends Phaser.Scene {
       }
     
       create() {
+        this.menu = this.sound.add("MusicaMenu", {loop: true, volume: 1});
+        this.menu.play();
         }
     
     

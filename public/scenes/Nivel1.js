@@ -85,6 +85,9 @@ export default class Nivel1 extends Phaser.Scene {
     
     this.Pausa.setDepth(2)
     this.textoenemigoderrotado = this.add.text(677, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
+    this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
+    this.musicaniveles.play();
+    
   }
 
   update() {
@@ -240,7 +243,7 @@ export default class Nivel1 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 100
+    if (this.enemigosderrotados >= 10
        && this.vidas >= 1) {
       this.escenaGanar();
     }
@@ -299,6 +302,7 @@ export default class Nivel1 extends Phaser.Scene {
       this.vidas= 3
       this.tiempoTranscurrido = 0
       this.enemigosderrotados = 0
+      this.musicaniveles.stop()
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "Ganaste");
@@ -326,6 +330,8 @@ export default class Nivel1 extends Phaser.Scene {
     this.Oro = this.add.image(388,250, "MedallaOro").setDepth(4)
     this.Plata = this.add.image(320, 250, "MedallaPlata").setDepth(4)
     this.Bronce = this.add.image(455, 254, "MedallaBronce").setDepth(4)
+
+    this.musicaniveles.stop()
 
     if (this.vidas === 2){
       this.Oro.setVisible(false)
@@ -360,6 +366,7 @@ export default class Nivel1 extends Phaser.Scene {
     }, 1000);
     this.pausado = true;
     this.physics.pause();
+    this.musicaniveles.stop()
   }
   reiniciarJuego() {
     this.scene.restart();

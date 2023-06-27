@@ -26,6 +26,8 @@ export default class SeleccionNivel extends Phaser.Scene {
        
         this.nivel3 = this.add.image(520,315, "BtnNivel3").setScale().setInteractive();
         this.nivel3.setInteractive().on("pointerup", this.empezarNivel3, this);
+        this.menu = this.sound.add("MusicaMenu", {loop: true, volume: 1});
+        this.menu.play();
 
       }
     
@@ -35,16 +37,23 @@ export default class SeleccionNivel extends Phaser.Scene {
       update() {
       }
       volverMenu(){
+        this.menu.stop()
         this.scene.start("menuprincipal")
+
       }
       empezarNivel1(){  
+        this.menu.stop()
+
         this.scene.start("nivel1")
 
       }
       empezarNivel2(){  
+       this.menu.stop()
         this.scene.start("nivel2")
       }
       empezarNivel3(){
+        this.menu.stop()
+
         this.scene.start("Juego3")
 
       }

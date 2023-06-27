@@ -104,7 +104,8 @@ export default class NivelInfinito extends Phaser.Scene {
     this.Pausa.setDepth(2)
     this.textoenemigoderrotado = this.add.text(575, 20, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
     this.textoTiempo = this.add.text(397, 20,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
-
+    this.musicaniveles = this.sound.add("MusicaNiveles", {loop: true, volume: 1});
+    this.musicaniveles.play();
   }
   
   update() {

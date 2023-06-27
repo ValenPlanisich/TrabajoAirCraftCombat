@@ -12,6 +12,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image("FondoNivel1", "./public/Images/FondoNivel1.png");
         this.load.image("FondoNivel2", "./public/Images/FondoNivel2.png");
         this.load.image("FondoNivel3", "./public/Images/FondoNivel3.png");
+        this.load.image("Fondocontroles", "./public/Images/FondoControles.png");
         this.load.image("Avion", "./public/Images/Avion.png");
         this.load.image("Enemigo", "./public/Images/Enemigo.png");
         this.load.image("Bala", "./public/Images/Bala.png");
@@ -56,6 +57,8 @@ export default class Preload extends Phaser.Scene {
         this.load.image("JugadorDerecha","./public/Images/Jugador3.png")
         this.load.image("JugadorArriba","./public/Images/Jugador4.png")
         this.load.image("JugadorAbajo","./public/Images/Jugador5.png");
+        this.load.audio("MusicaMenu","./public/Images/battleThemeB.mp3")
+        this.load.audio("MusicaNiveles", "./public/Images/TheTreadofwar.mp3")
 
         this.load.spritesheet("Movimiento", "./public/Images/MovimientoAvion.png", {
           frameWidth: 128,
