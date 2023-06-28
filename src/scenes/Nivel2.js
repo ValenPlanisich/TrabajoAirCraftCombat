@@ -138,7 +138,7 @@ export default class Nivel2 extends Phaser.Scene {
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++}
-    if (this.tiempoTranscurrido >= 45 && this.vidas >= 1){
+    if (this.tiempoTranscurrido >= 20 && this.vidas >= 1){
       this.escenaGanar(); 
 
     }

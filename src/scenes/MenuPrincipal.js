@@ -23,13 +23,13 @@ export default class MenuPrincipal extends Phaser.Scene {
           this.scene.start("seleccionnivel");
           this.menu.stop()
         });
-   /* this.informacion = this.add.image(950, 725, "misilcontroles")
+    this.informacion = this.add.image(950, 725, "misilcontroles")
     this.informacion.setInteractive();
     this.informacion.on("pointerdown", () => {
-         this.scene.start("menucontroles"); //esta bugueada, manda al nivel infinito
+         this.scene.start("menucontroles"); //ESTA BUGUEADA MANDA A NIVEL INFINITO
           this.menu.stop()
         });
-  */
+  
     this.nivelinfinito = this.add.image(950, 650, "misilinfinito");
     this.nivelinfinito.setInteractive();
     this.nivelinfinito.on("pointerdown", () => {
