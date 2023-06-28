@@ -43,7 +43,7 @@ export default class NivelInfinito extends Phaser.Scene {
 
 
     this.time.addEvent({
-      delay: 500,
+      delay: 2000,
       callback: this.addAvion,
       callbackScope: this,
       loop: true
@@ -61,7 +61,7 @@ export default class NivelInfinito extends Phaser.Scene {
       loop: true
     });
     this.time.addEvent({
-      delay: 1200,
+      delay: 2000,
       callback: this.addMisil,
       callbackScope: this,
       loop: true,

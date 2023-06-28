@@ -1,7 +1,7 @@
 export default class Nivel1 extends Phaser.Scene {
   constructor() {
     super("nivel1");
-    this.vidas = 15;
+    this.vidas = 3;
     this.tiempoTranscurrido = 0;
     this.explosion = null;
     this.enemigosderrotados = 0
