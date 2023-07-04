@@ -133,7 +133,7 @@ export default class Nivel2 extends Phaser.Scene {
     else {this.avion.setVelocityY(0)
 
       }
-    this.textoTiempo.setText(this.tiempoTranscurrido + "/45"); this
+    this.textoTiempo.setText(this.tiempoTranscurrido + "/20"); this
 
   }
   cronometro(){

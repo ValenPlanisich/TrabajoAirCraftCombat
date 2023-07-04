@@ -123,7 +123,7 @@ export default class Nivel1 extends Phaser.Scene {
       }
 
 
-    this.textoenemigoderrotado.setText(this.enemigosderrotados + "/25"); this
+    this.textoenemigoderrotado.setText(this.enemigosderrotados + "/10"); this
 
   }
 
@@ -254,7 +254,7 @@ export default class Nivel1 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 25
+    if (this.enemigosderrotados >= 10
        && this.vidas >= 1) {
       this.escenaGanar();
     }

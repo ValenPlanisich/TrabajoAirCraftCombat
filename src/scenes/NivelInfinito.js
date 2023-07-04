@@ -184,7 +184,7 @@ export default class NivelInfinito extends Phaser.Scene {
     const bala = this.physics.add.sprite(
       this.avion.x + 50,
       this.avion.y,
-      "Bala"
+      "bala"
     );
     this.bala.add(bala);
     bala.setVelocityX(800);
