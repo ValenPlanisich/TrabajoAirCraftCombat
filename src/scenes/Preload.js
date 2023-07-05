@@ -58,7 +58,7 @@ export default class Preload extends Phaser.Scene {
         this.load.image("jugadorarriba","./public/Images/Jugador4.png")
         this.load.image("jugadorabajo","./public/Images/Jugador5.png");
         this.load.audio("musicamenu","./music/battleThemeB.mp3")
-        this.load.audio("musicaniveles", "./music/TheTreadofwar.mp3")
+        this.load.audio("musicaniveles", "./music/thetreadofwar.mp3")
         this.load.audio("musicavictoria","./music/Musicadevictoria.mp3")
         this.load.audio("musicaderrota", "./music/GameOver.mp3")
         this.load.audio("explosionyo","./music/explosionyo.mp3")
