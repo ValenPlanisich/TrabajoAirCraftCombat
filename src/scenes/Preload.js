@@ -37,8 +37,8 @@ export default class Preload extends Phaser.Scene {
         this.load.image("btnsalir", "./public/botonmenu.png");
         this.load.image("btnreiniciar", "./public/botonreiniciar.png");
         this.load.image("medallaoro", "./public/medallaoro.png")
-        this.load.image("medallaplata", "./public/edallaplata.png")
-        this.load.image("medallabronce", "./public/medallabdronce.png")
+        this.load.image("medallaplata", "./public/medallaplata.png")
+        this.load.image("medallabronce", "./public/medallabronce.png")
         this.load.image("misil", "./public/misil.png");
         this.load.image("popuptiempo", "./public/popuppausatiempo.png");
         this.load.image("ganastetiempo", "./public/popupvictoriatiempo.png");
@@ -54,10 +54,10 @@ export default class Preload extends Phaser.Scene {
         this.load.image("btnvolver","./public/botonvolver.png");
         this.load.image("jugadorquieto","./public/jugador1.png")
         this.load.image("jugadorizquierda","./public/jugador2.png")
-        this.load.image("jugadorderecha","./publi/jugador3.png")
+        this.load.image("jugadorderecha","./public/jugador3.png")
         this.load.image("jugadorarriba","./public/jugador4.png")
         this.load.image("jugadorabajo","./public/jugador5.png");
-        this.load.audio("musicamenu","./music/battlethemeB.mp3")
+        this.load.audio("musicamenu","./music/battlethemeb.mp3")
         this.load.audio("musicaniveles", "./music/thetreadofwar.mp3")
         this.load.audio("musicavictoria","./music/musicadevictoria.mp3")
         this.load.audio("musicaderrota", "./music/gameover.mp3")
