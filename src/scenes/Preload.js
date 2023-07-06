@@ -64,13 +64,13 @@ export default class Preload extends Phaser.Scene {
         this.load.audio("explosionyo","./music/explosionyo.mp3")
         this.load.audio("explosionmalos","./music/explosionmalos.mp3")
 
-        this.load.spritesheet("movimiento", "./public/MovimientoAvion.png", {
+        this.load.spritesheet("movimiento", "./public/movimientoavion.png", {
           frameWidth: 128,
           frameHeight: 128
         });  
     
     
-        this.load.spritesheet("explosion", "public/ExplosionSprite.png", {
+        this.load.spritesheet("explosion", "public/explosionsprite.png", {
           frameWidth: 128,
           frameHeight: 128
         });
