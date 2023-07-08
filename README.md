@@ -1,5 +1,5 @@
-# Phaser 3 Template
+ # AirCraft Combat
 
-Plantilla para iniciar nuevos proyectos con PHASER 3.
+Este repositorio pertenece al videojuego AirCraft Combat, desarrollado por Valentin Planisich, estudiante de UNRaf
 
-Contiene configuración inicial y buenas prácticas de estructuras de carpetas.
+Aqui se contiene tanto codigo como las imagenes pertenecientes al videojuego
