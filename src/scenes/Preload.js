@@ -57,12 +57,12 @@ export default class Preload extends Phaser.Scene {
         this.load.image("jugadorderecha","./public/images/jugador3.png")
         this.load.image("jugadorarriba","./public/images/jugador4.png")
         this.load.image("jugadorabajo","./public/images/jugador5.png");
-        this.load.audio("musicamenu","./public/music/battlethemeb.mp3")
-        this.load.audio("musicaniveles", "./public/music/thetreadofwar.mp3")
-        this.load.audio("musicavictoria","./public/music/musicadevictoria.mp3")
-        this.load.audio("musicaderrota", "./public/music/gameover.mp3")
-        this.load.audio("explosionyo","./public/music/explosionyo.mp3")
-        this.load.audio("explosionmalos","./public/music/explosionmalos.mp3")
+        this.load.audio("musicamenu","./public/audio/battleThemeB.mp3")
+        this.load.audio("musicaniveles", "./public/audio/TheTreadofWar.mp3")
+        this.load.audio("musicavictoria","./public/audio/Musicadevictoria.mp3")
+        this.load.audio("musicaderrota", "./public/audio/GameOver.mp3")
+        this.load.audio("explosionyo","./public/audio/explosionyo.mp3")
+        this.load.audio("explosionmalos","./public/audio/explosionmalos.mp3")
 
         this.load.spritesheet("movimiento", "./public/images/movimientoavion.png", {
           frameWidth: 128,
