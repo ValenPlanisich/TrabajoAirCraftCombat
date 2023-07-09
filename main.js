@@ -1,11 +1,11 @@
-import MenuPrincipal from "./src/scenes/MenuPrincipal.js";
-import SeleccionNivel from "./src/scenes/SeleccionNivel.js";
-import Nivel1 from "./src/scenes/Nivel1.js";
-import Nivel2 from "./src/scenes/Nivel2.js";
-import Juego3 from "./src/scenes/Juego3.js";
-import Preload from "./src/scenes/Preload.js";
-import MenuControles from "./src/scenes/MenuControles.js";
-import NivelInfinito from "./src/scenes/NivelInfinito.js"; 
+import MenuPrincipal from "./src/scene/MenuPrincipal.js";
+import SeleccionNivel from "./src/scene/SeleccionNivel.js";
+import Nivel1 from "./src/scene/Nivel1.js";
+import Nivel2 from "./src/scene/Nivel2.js";
+import Juego3 from "./src/scene/Juego3.js";
+import Preload from "./src/scene/Preload.js";
+import MenuControles from "./src/scene/MenuControles.js";
+import NivelInfinito from "./src/scene/NivelInfinito.js"; 
 
 
 
