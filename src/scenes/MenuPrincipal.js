@@ -37,7 +37,7 @@ export default class MenuPrincipal extends Phaser.Scene {
                     this.menu.stop()
         });
 
-    this.menu = this.sound.add("musicamenu", {loop: true, volume: 1});
+    this.menu = this.sound.add("musicademenu", {loop: true, volume: 1});
     this.menu.play();
   }
 
