@@ -101,7 +101,7 @@ export default class Juego3 extends Phaser.Scene {
     this.Pausa.setInteractive().on("pointerup", this.pausarJuego, this);
     
     this.Pausa.setDepth(2)
-    this.textoenemigoderrotado = this.add.text(710, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
+    this.textoenemigoderrotado = this.add.text(707, 17, ":" ,{fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" });
     this.textoTiempo = this.add.text(565, 17,  ":", {fontFamily:"pressStart2P", fontSize: "20px", fill: "#FFFFFF" })
     this.musicaniveles = this.sound.add("musicaniveles", {loop: true, volume: 1});
     this.musicaniveles.play();
@@ -280,8 +280,7 @@ export default class Juego3 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.enemigosderrotados >= 20 && this.tiempoTranscurrido >=45
-       && this.vidas >= 1) {
+    if (this.tiempoTranscurrido >=45 && this.enemigosderrotados >= 20 && this.vidas >= 1) {
       this.escenaGanar();
     }
    }
@@ -372,6 +371,7 @@ export default class Juego3 extends Phaser.Scene {
     this.Bronce = this.add.image(455, 254, "medallabronce").setDepth(4)
 
     this.musicaniveles.stop()
+    this.musicavictoria.play()
 
     if (this.vidas === 2){
       this.Oro.setVisible(false)
@@ -386,7 +386,7 @@ export default class Juego3 extends Phaser.Scene {
     setTimeout(() => {
       this.perder = this.add.image(400, 300, "perdiste");
       this.perder.setDepth(3);
-      this.add.text(393,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
+      this.add.text(390,337, this.enemigosderrotados,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(3);
       this.reiniciar = this.add.sprite(480, 410, "btnreiniciar");
       this.reiniciar.setInteractive();
       this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
