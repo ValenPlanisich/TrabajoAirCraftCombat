@@ -5,4 +5,4 @@ Este mismo fue realizado a través del framework PHASER 3 y utilizando el lengua
 
 Si quieres probarlo puedes hacerlo a través del siguiente link : (poner link)
 
-Contacto: e-mail: valeplanisich@gmail.com
+Contacto e-mail: valeplanisich@gmail.com
