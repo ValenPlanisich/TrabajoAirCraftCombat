@@ -7,10 +7,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.explosion = null;
     this.enemigosderrotados = 0
   }
-
-  preload() {
- 
-  }
   create() {
     this.add.image(400, 300, "fondonivel2");
     this.avion = this.physics.add.sprite(100, 300, "jugadorquieto").setScale(1.2);
@@ -21,7 +17,7 @@ export default class Nivel2 extends Phaser.Scene {
     this.bala = this.physics.add.group();
     this.misil = this.physics.add.group();
     this.avion.setDepth(1);
-  
+   
     this.physics.add.overlap(
       this.avion, this.misil, this.avionEnemigoColision,null,this
     )
@@ -39,7 +35,6 @@ export default class Nivel2 extends Phaser.Scene {
       null,
       this
     );
-
 
     this.time.addEvent({
       delay: 1800,
@@ -66,7 +61,6 @@ export default class Nivel2 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-
    const tiempo = this.time.addEvent({
       delay: 1000,
       callback: this.cronometro,
@@ -76,9 +70,7 @@ export default class Nivel2 extends Phaser.Scene {
     });
 
     this.lastEnemyY = 0;
-
     this.input.keyboard.on("keydown-SPACE", this.disparar, this);
-
     this.vidasImagen = this.add
       .image(120, 10, "3vidas")
       .setOrigin(1, 0)
@@ -105,8 +97,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.musicaderrota = this.sound.add("musicaderrota", {loop: false, volume: 1});
     this.explosionyo = this.sound.add("explosionyo", {loop: false, volume: 1});
     this.explosionmalos = this.sound.add("explosionmalos", {loop: false, volume: 1});
-
-
   }
 
   update() {
@@ -117,13 +107,11 @@ export default class Nivel2 extends Phaser.Scene {
     else if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D).isDown) {
       this.avion.setVelocityX(350);
       this.avion.setTexture("jugadorderecha")
-
     }
     else {
       this.avion.setVelocityX(0);
       this.avion.setTexture("jugadorquieto")
     }
-
     if (this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W).isDown) {
       this.avion.setVelocityY(-350);
       this.avion.setTexture("jugadorarriba")
@@ -133,24 +121,19 @@ export default class Nivel2 extends Phaser.Scene {
           this.avion.setTexture("jugadorabajo")
         }
     else {this.avion.setVelocityY(0)
-
       }
     this.textoTiempo.setText(this.tiempoTranscurrido + "/20"); this
-
   }
   cronometro(){
     if (!this.pausado) {this.tiempoTranscurrido++, this.tiempoPrueba++}
     if (this.tiempoPrueba >= 20 && this.vidas >= 1){
       this.escenaGanar(); 
       this.time.removeEvent("cronometro")
-
     }
-    console.log("tiempo");
   }
   avionEnemigoColision(avion, enemigo, misil) {
     this.vidas--;
     this.explosionEnemigo(enemigo.x, enemigo.y,this.misil.x,this.misil.y)
-
     switch (this.vidas) {
       case 2:
         this.vidasImagen.setTexture("2vidas");
@@ -162,53 +145,39 @@ export default class Nivel2 extends Phaser.Scene {
         this.vidasImagen.setTexture("0vidas");
         break;
     }
-    
     this.vidasImagen.x = 120;
     this.vidasImagen.y = 10;
     enemigo.destroy();
-
     if (this.vidas === 0) {
-
       this.crearExplosion(this.avion.x, this.avion.y);
       this.avion.disableBody(true, true);
       this.escenaPerder()
-
     }
   }
   balaEnemigoColision(bala, enemigo) {
     bala.destroy();
     enemigo.destroy();
-    
     this.explosionEnemigo(enemigo.x, enemigo.y)    //console.log("Enemigo derrotado");
   }
-
   disparar() {
     const bala = this.physics.add.sprite(
       this.avion.x + 50,
-      this.avion.y,
-      "bala"
+      this.avion.y, "bala"
     );
     this.bala.add(bala);
     bala.setVelocityX(800);
     bala.setSize(90, 40);
     bala.setScale(0.3);
   }
-
   addAvion() {
     const randomY = Phaser.Math.RND.between(100, 500);
     const randomX = Phaser.Math.Between(900,1000);
-    const enemigo = this.physics.add.sprite(randomX, randomY, "enemigo").setScale(
-      1.2
-    );
+    const enemigo = this.physics.add.sprite(randomX, randomY, "enemigo").setScale(1.2);
     this.enemigo.add(enemigo);
     this.enemigo.setVelocityX(-500);
     enemigo.setSize(90, 30);
     this.enemigo.setDepth(1);
-    
-    //if(this.vidas===0){
-    //  this.enemigo.setVelocityX(0);
-   // }
-
+   
     setTimeout(() => {
       if (!enemigo.body || !enemigo.body.touching.none) {
         return;
@@ -224,7 +193,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.misil.setVelocityY(500)
     misil.setSize(50, 190)
   }
-
   agregarNube() {
    if (!this.pausado) {
    const nube = this.physics.add.sprite(
@@ -237,11 +205,6 @@ export default class Nivel2 extends Phaser.Scene {
     nube.setDepth(0);
   }
   }
- // pausarNubes() {
-   // for (let i = 0; i < this.nubes.length; i++) {
-   //   this.nubes[i].setVelocityX(0); // Pausar el movimiento de cada nube
-   // }
-  //}
   agregarMontaña() {
     const montaña = this.physics.add.sprite(
       1000,
@@ -254,37 +217,26 @@ export default class Nivel2 extends Phaser.Scene {
     if(this.vidas===0){
       montaña.setVelocityX(0);
     }
-
   }
-
   crearExplosion(x, y) {
-    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); // Ajusta el valor de escala según tus necesidades
-    this.explosion.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosion = this.add.sprite(x, y, "Explosion").setScale(2); 
+    this.explosion.setOrigin(0.5, 0.5); 
     this.explosion.on("animationcomplete", () => {
       this.explosion.destroy();
-      this.avion.disableBody(true, true); // Desactiva el cuerpo físico del avión
+      this.avion.disableBody(true, true); 
     }, this);
     this.explosion.play("Explosion");
     this.explosionyo.play()
   }
   explosionEnemigo(x, y) {
-    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); // Ajusta el valor de escala según tus necesidades
-    this.explosionenemigo.setOrigin(0.5, 0.5); // Ajusta el origen del sprite para que la posición sea relativa al centro
+    this.explosionenemigo = this.add.sprite(x, y, "ExplosionEnemigos").setScale(2); 
+    this.explosionenemigo.setOrigin(0.5, 0.5); 
     this.explosionenemigo.on("animationcomplete", () => {
       this.explosionenemigo.destroy()
     }, this);
     this.explosionenemigo.play("ExplosionEnemigos");
     this.explosionmalos.play()
-
   }
-  //puntaje() {
-  //  this.enemigosderrotados ++
-  //  console.log("Enemigos derrotados", this.enemigosderrotados);
-  //  if (this.enemigosderrotados >= 10
-  //     && this.vidas >= 1) {
-  //    this.escenaGanar();
-  //  }
-  // }
   pausarJuego() {
     this.reanudar = this.add.sprite(390, 411, "reanudar");
     this.reanudar.setInteractive();
@@ -295,7 +247,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.reanudar.setVisible(true).setActive(true);
     this.scene.bringToTop();
     this.textopausa= this.add.text(396,330, this.tiempoTranscurrido,{fontFamily:"pressStart2P", fontSize: "30px", fill: "#003366" } ).setDepth(5);
-    
     this.reiniciar = this.add.sprite(480, 410, "btnreiniciar");
     this.reiniciar.setInteractive();
     this.reiniciar.on("pointerdown", () => this.reiniciarJuego(), this);
@@ -303,15 +254,10 @@ export default class Nivel2 extends Phaser.Scene {
     this.reiniciar.setDepth(4);
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-    
     this.Popup = this.add.image(400, 300, "popuptiempo").setVisible(false);
     this.Popup.setVisible(true);
     this.Popup.setDepth(3);
-    
     this.pausado = true;
-    
-    
-   
     this.salir = this.add.sprite(300, 410, "btnsalir");
     this.salir.setInteractive();
     this.salir.on("pointerdown", () => this.salirJuego(), this);
@@ -319,9 +265,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.salir.setDepth(4);
     this.salir.setVisible(true).setActive(true);
     this.scene.bringToTop();
-  
-  //this.tiempoTranscurrido.pause();
-
 }
   reanudarJuego() {
     this.physics.resume();
@@ -329,12 +272,9 @@ export default class Nivel2 extends Phaser.Scene {
     this.reanudar.setVisible(false).setActive(false);
     this.reiniciar.setVisible(false).setActive(false);
     this.salir.setVisible(false).setActive(false);
-    //this.ganar.setVisible(false).setActive(false);
     this.pausado = false;
     this.textopausa.setVisible(false).setActive(false);
-   // this.tiempoTranscurrido.resume();
   }
-
   salirJuego() {
       this.scene.start("seleccionnivel");
       this.vidas= 3
@@ -343,7 +283,6 @@ export default class Nivel2 extends Phaser.Scene {
       this.enemigosderrotados = 0
       this.musicaniveles.stop()
       this.musicaderrota.stop()
-
     }
   escenaGanar() {
     this.ganar = this.add.image(400, 300, "ganastetiempo", true); this
@@ -356,8 +295,6 @@ export default class Nivel2 extends Phaser.Scene {
     this.reiniciar.setDepth(4);
     this.reiniciar.setVisible(true).setActive(true);
     this.scene.bringToTop();
-    
-    
     this.salir = this.add.sprite(300, 410, "btnsalir");
     this.salir.setInteractive();
     this.salir.on("pointerdown", () => this.salirJuego(), this);
@@ -367,17 +304,12 @@ export default class Nivel2 extends Phaser.Scene {
     this.scene.bringToTop();
     this.pausado = true;
     this.physics.pause();
-    
     this.Oro = this.add.image(388,250, "medallaoro").setDepth(4)
     this.Plata = this.add.image(320, 250, "medallaplata").setDepth(4)
     this.Bronce = this.add.image(455, 254, "medallabronce").setDepth(4)
-
     this.musicaniveles.stop()
     this.musicavictoria.play();
     this.tiempoPrueba = -100000
-
-   
-
     if (this.vidas === 2){
       this.Oro.setVisible(false)
     }
@@ -385,7 +317,6 @@ export default class Nivel2 extends Phaser.Scene {
       this.Oro.setVisible(false)
       this.Plata.setVisible(false)
     }
-
   }
   escenaPerder() {
     setTimeout(() => {
@@ -399,7 +330,6 @@ export default class Nivel2 extends Phaser.Scene {
       this.reiniciar.setDepth(4);
       this.reiniciar.setVisible(true).setActive(true);
       this.scene.bringToTop();
-      
       this.salir = this.add.sprite(300, 425, "btnsalir");
       this.salir.setInteractive();
       this.salir.on("pointerdown", () => this.salirJuego(), this);
@@ -408,24 +338,20 @@ export default class Nivel2 extends Phaser.Scene {
       this.salir.setVisible(true).setActive(true);
       this.scene.bringToTop();
       this.musicaderrota.play();
-    
     }, 1000);
     this.pausado = true;
     this.physics.pause();
     this.musicaniveles.stop()
-
   }
   reiniciarJuego() {
     this.scene.restart();
    this.pausado = false;
-   // this.physics.resume();
     this.vidas= 3
     this.tiempoTranscurrido = 0
     this.tiempoPrueba= 0
     this.enemigosderrotados = 0
     this.musicaderrota.stop();
     this.musicaniveles.stop();
-  
   }
 
   

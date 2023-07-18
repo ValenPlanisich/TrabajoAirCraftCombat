@@ -6,15 +6,6 @@ export default class MenuPrincipal extends Phaser.Scene {
     // the key will be used to start the scene by other scenes
     super("menuprincipal");
   }
-
-  init() {
-
-  }
-
-  preload() {
-
-  }
-
   create() {
     this.add.image(400, 300, "portada");
     this.jugar = this.add.image(950, 575, "misiljugar");
@@ -29,22 +20,13 @@ export default class MenuPrincipal extends Phaser.Scene {
          this.scene.start("menucontroles"); //ESTA BUGUEADA MANDA A NIVEL INFINITO
           this.menu.stop()
         });
-  
     this.nivelinfinito = this.add.image(950, 725, "misilinfinito");
     this.nivelinfinito.setInteractive();
     this.nivelinfinito.on("pointerdown", () => {
           this.scene.start("nivelinfinito");
                     this.menu.stop()
         });
-
     this.menu = this.sound.add("musicademenu", {loop: true, volume: 1});
     this.menu.play();
   }
-
-
-  
-
-  update() {
-  }
-
 }

@@ -4,10 +4,6 @@ export default class Preload extends Phaser.Scene {
       // the key will be used to start the scene by other scenes
       super("preload");
       }
-      init() {
-
-      }
-    
       preload() {
         this.load.image("fondonivel1", "./public/images/fondonivel1.png");
         this.load.image("fondonivel2", "./public/images/fondonivel2.png");
@@ -63,28 +59,16 @@ export default class Preload extends Phaser.Scene {
         this.load.audio("musicaderrota", "./public/audio/GameOver.mp3")
         this.load.audio("explosionyo","./public/audio/explosionyo.mp3")
         this.load.audio("explosionmalos","./public/audio/explosionmalos.mp3")
-
         this.load.spritesheet("movimiento", "./public/images/movimientoavion.png", {
           frameWidth: 128,
           frameHeight: 128
         });  
-    
-    
         this.load.spritesheet("explosion", "public/images/explosionsprite.png", {
           frameWidth: 128,
           frameHeight: 128
         });
       }
-    
       create() {
-    
         this.scene.start("menuprincipal")
-        
-
         }
-    
-      
-    
-      update() {
-      }
     }
