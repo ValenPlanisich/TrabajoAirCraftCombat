@@ -5,6 +5,7 @@ export default class Juego3 extends Phaser.Scene {
     this.tiempoTranscurrido = 0;
     this.explosion = null;
     this.enemigosderrotados = 0
+    this.escenaGanada = false;
   }
 
   preload() {
@@ -137,6 +138,10 @@ export default class Juego3 extends Phaser.Scene {
         }
     else {this.avion.setVelocityY(0)
 
+      }
+      if (!this.escenaGanada && this.tiempoTranscurrido >=5 && this.enemigosderrotados >= 5 && this.vidas >= 1) {
+        this.escenaGanar();
+        this.escenaGanada = true
       }
         
   
@@ -280,9 +285,6 @@ export default class Juego3 extends Phaser.Scene {
   puntaje() {
     this.enemigosderrotados ++
     console.log("Enemigos derrotados", this.enemigosderrotados);
-    if (this.tiempoTranscurrido >=45 && this.enemigosderrotados >= 20 && this.vidas >= 1) {
-      this.escenaGanar();
-    }
    }
   pausarJuego() {
     this.reanudar = this.add.sprite(390, 411, "reanudar");
@@ -417,6 +419,7 @@ export default class Juego3 extends Phaser.Scene {
     this.vidas= 3
     this.tiempoTranscurrido = 0
     this.enemigosderrotados = 0
+    this.escenaGanada = false
     this.musicaderrota.stop();
   
   }

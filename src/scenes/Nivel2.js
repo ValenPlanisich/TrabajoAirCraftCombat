@@ -3,6 +3,7 @@ export default class Nivel2 extends Phaser.Scene {
     super("nivel2");
     this.vidas = 3;
     this.tiempoTranscurrido = 0;
+    this.tiempoPrueba = 0;
     this.explosion = null;
     this.enemigosderrotados = 0
   }
@@ -71,6 +72,7 @@ export default class Nivel2 extends Phaser.Scene {
       callback: this.cronometro,
       callbackScope: this,
       loop: true,
+      eventname:"cronometro",
     });
 
     this.lastEnemyY = 0;
@@ -137,9 +139,10 @@ export default class Nivel2 extends Phaser.Scene {
 
   }
   cronometro(){
-    if (!this.pausado) {this.tiempoTranscurrido++}
-    if (this.tiempoTranscurrido >= 20 && this.vidas >= 1){
+    if (!this.pausado) {this.tiempoTranscurrido++, this.tiempoPrueba++}
+    if (this.tiempoPrueba >= 20 && this.vidas >= 1){
       this.escenaGanar(); 
+      this.time.removeEvent("cronometro")
 
     }
     console.log("tiempo");
@@ -336,6 +339,7 @@ export default class Nivel2 extends Phaser.Scene {
       this.scene.start("seleccionnivel");
       this.vidas= 3
       this.tiempoTranscurrido = 0
+      this.tiempoPrueba = 0
       this.enemigosderrotados = 0
       this.musicaniveles.stop()
       this.musicaderrota.stop()
@@ -370,7 +374,9 @@ export default class Nivel2 extends Phaser.Scene {
 
     this.musicaniveles.stop()
     this.musicavictoria.play();
+    this.tiempoPrueba = -100000
 
+   
 
     if (this.vidas === 2){
       this.Oro.setVisible(false)
@@ -415,8 +421,10 @@ export default class Nivel2 extends Phaser.Scene {
    // this.physics.resume();
     this.vidas= 3
     this.tiempoTranscurrido = 0
+    this.tiempoPrueba= 0
     this.enemigosderrotados = 0
     this.musicaderrota.stop();
+    this.musicaniveles.stop();
   
   }
 
