@@ -157,7 +157,7 @@ export default class Nivel2 extends Phaser.Scene {
   balaEnemigoColision(bala, enemigo) {
     bala.destroy();
     enemigo.destroy();
-    this.explosionEnemigo(enemigo.x, enemigo.y)    //console.log("Enemigo derrotado");
+    this.explosionEnemigo(enemigo.x, enemigo.y)    
   }
   disparar() {
     const bala = this.physics.add.sprite(
